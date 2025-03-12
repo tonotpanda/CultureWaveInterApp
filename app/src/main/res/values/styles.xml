@@ -1,12 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="CalendarDateTextAppearance">
-        <item name="android:textColor">@color/dateTextColor</item>
-        <item name="android:textSize">14sp</item>
-    </style>
+    <color name="calendarBackgroundColor">#E4B363</color>
+    <color name="calendarTextColor">#121212</color>
+    <color name="calendarSelectedDayColor">#AE5C32</color>
 
-    <style name="CalendarWeekDayTextAppearance">
-        <item name="android:textColor">@color/weekDayTextColor</item>
-        <item name="android:textSize">12sp</item>
+    <style name="CustomCalendarStyle">
+        <!-- Fondo del calendario -->
+        <item name="android:background">@color/calendarBackgroundColor</item>
+        <!-- Color de los días -->
+        <item name="android:textColor">@color/calendarTextColor</item>
+        <!-- Color del texto del día seleccionado -->
+        <item name="android:selectedDateVerticalBar">@color/calendarSelectedDayColor</item>
     </style>
 </resources>

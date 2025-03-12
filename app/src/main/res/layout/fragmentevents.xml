@@ -2,8 +2,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:background="@color/background"
-    android:orientation="vertical">
+    android:padding="16dp">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -23,13 +24,20 @@
         android:textStyle="bold" />
 
     <!-- CalendarView para mostrar el calendario -->
-    <CalendarView
-        android:id="@+id/calendarView"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/calendarCardView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:dateTextAppearance="@android:style/TextAppearance.Large"
-        android:showWeekNumber="false"
-        android:weekDayTextAppearance="@android:style/TextAppearance.Medium" />
+        android:layout_margin="16dp"
+        android:layout_weight="1">
+
+        <CalendarView
+            android:id="@+id/calendarView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:showWeekNumber="false"
+            android:theme="@style/CustomCalendarStyle"
+            android:weekDayTextAppearance="@android:style/TextAppearance.Medium" />
+    </androidx.cardview.widget.CardView>
 
 </LinearLayout>
