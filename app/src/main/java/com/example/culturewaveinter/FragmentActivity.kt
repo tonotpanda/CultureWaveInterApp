@@ -24,17 +24,17 @@ class FragmentActivity : AppCompatActivity() {
                 }
                 R.id.navigation_events -> {
                     // Cargar el fragmento de Events (o el que desees)
-                    loadFragment(FragmentEvents()) // Este es solo un ejemplo, crea tu fragmento de eventos
+                    loadFragment(FragmentEvents())
                     true
                 }
                 R.id.navigation_chat -> {
                     // Cargar el fragmento de Chat
-                    loadFragment(FragmentChat()) // Este es solo un ejemplo, crea tu fragmento de chat
+                    loadFragment(FragmentChat())
                     true
                 }
                 R.id.navigation_profile -> {
                     // Cargar el fragmento de Profile
-                    //loadFragment(FragmentProfile()) // Este es solo un ejemplo, crea tu fragmento de perfil
+                    loadFragment(FragmentProfile())
                     true
                 }
                 else -> false
