@@ -8,6 +8,11 @@
     <color name="navbarColor">#E4B363</color>
     <color name="blue">#FF40BBEB</color>
 
-
-
+    <color name="selectedWeekBackground">#FFDDDDDD</color>
+    <color name="focusedMonthDate">#FF000000</color>
+    <color name="unfocusedMonthDate">#FF888888</color>
+    <color name="weekNumberColor">#FF0000FF</color>
+    <color name="weekSeparatorLineColor">#FFCCCCCC</color>
+    <color name="dateTextColor">#FF000000</color>
+    <color name="weekDayTextColor">#FF0000FF</color>
 </resources>
