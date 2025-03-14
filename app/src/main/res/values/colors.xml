@@ -20,5 +20,8 @@
     <color name="calendarTextColor">#121212</color>
     <color name="calendarBackgroundColor">#E4B363</color>
 
+    <color name="spinnerColor">#AE5C32</color>
+
+
 
 </resources>
