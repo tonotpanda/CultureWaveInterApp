@@ -1,50 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background"
     android:orientation="vertical">
 
-    <LinearLayout
+    <!-- Contenedor para el contenido de la actividad -->
+    <FrameLayout
+        android:id="@+id/contentContainer"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <ImageView
+        <!-- Aquí va el contenido específico de la actividad crearEventosActivity -->
+        <!-- Por ejemplo, puedes agregar un TextView, EditText, etc. -->
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
-            android:src="@drawable/arrow" />
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:text="Crear Eventos"
+            android:textSize="24sp"
             android:layout_gravity="center"
-            android:layout_marginStart="72dp"
-            android:paddingTop="40dp"
-            android:src="@drawable/logo" />
-    </LinearLayout>
+            android:textColor="@color/black" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/nunitobold"
-        android:text="CULTUREWAVE"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    </FrameLayout>
 
-    <TextView
-        android:layout_width="180dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/nunito"
-        android:text="Selecciona un espacio"
-        android:textSize="18sp" />
-
-
-
+    <!-- Barra de navegación inferior -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom"
+        android:background="@color/navbarColor"
+        android:elevation="8dp"
+        app:itemActiveIndicatorStyle="@null"
+        app:itemHorizontalTranslationEnabled="false"
+        app:itemIconSize="30dp"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemRippleColor="@null"
+        app:itemTextColor="@color/bottom_nav_color"
+        app:labelVisibilityMode="labeled"
+        app:menu="@menu/bottom_nav_menu" />
 
 </LinearLayout>

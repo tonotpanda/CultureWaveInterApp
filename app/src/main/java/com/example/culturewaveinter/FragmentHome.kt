@@ -8,18 +8,19 @@ import androidx.fragment.app.Fragment
 
 class FragmentHome : Fragment(R.layout.fragmenthome) {
 
-    private lateinit var imageViewNewEvent: ImageView // Declara la variable como ImageView
+    private lateinit var imageViewNewEvent: ImageView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // Usa view.findViewById para encontrar el ImageView
+        // Encuentra el ImageView en el layout del fragmento
         imageViewNewEvent = view.findViewById(R.id.buttonNewEvents)
 
         // Configura el clic del ImageView
         imageViewNewEvent.setOnClickListener {
-            val intent = Intent(activity, crearEventosActivity::class.java)
-            startActivity(intent) // Inicia la actividad
+                val intent = Intent(activity, crearEventosActivity::class.java)
+                startActivity(intent) // Inicia la actividad
+
         }
     }
 }
