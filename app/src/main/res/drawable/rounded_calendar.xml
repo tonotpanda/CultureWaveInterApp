@@ -1,5 +1,0 @@
-<!-- res/drawable/rounded_calendar.xml -->
-<shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#E4B363" /> <!-- Color de fondo del calendario -->
-    <corners android:radius="16dp" /> <!-- Bordes redondeados -->
-</shape>

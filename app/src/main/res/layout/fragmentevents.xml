@@ -27,17 +27,17 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/calendarCardView"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_margin="16dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
 
         <CalendarView
             android:id="@+id/calendarView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:showWeekNumber="false"
+            android:layout_height="wrap_content"
             android:theme="@style/CustomCalendarStyle"
-            android:weekDayTextAppearance="@android:style/TextAppearance.Medium" />
+            android:showWeekNumber="false"
+            android:dateTextAppearance="@style/CalendarViewDateCustomText"
+            android:weekDayTextAppearance="@style/CalendarViewWeekCustomText"/>
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

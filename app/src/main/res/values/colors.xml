@@ -15,4 +15,10 @@
     <color name="weekSeparatorLineColor">#FFCCCCCC</color>
     <color name="dateTextColor">#FF000000</color>
     <color name="weekDayTextColor">#FF0000FF</color>
+
+    <color name="calendarSelectedDayColor">#121212</color>
+    <color name="calendarTextColor">#121212</color>
+    <color name="calendarBackgroundColor">#E4B363</color>
+
+
 </resources>

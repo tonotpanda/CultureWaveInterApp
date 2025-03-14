@@ -1,14 +1,21 @@
 <resources>
-    <color name="calendarBackgroundColor">#E4B363</color>
-    <color name="calendarTextColor">#121212</color>
-    <color name="calendarSelectedDayColor">#AE5C32</color>
-
+    <!-- Estilo principal para el CalendarView -->
     <style name="CustomCalendarStyle">
         <!-- Fondo del calendario -->
         <item name="android:background">@color/calendarBackgroundColor</item>
-        <!-- Color de los días -->
-        <item name="android:textColor">@color/calendarTextColor</item>
-        <!-- Color del texto del día seleccionado -->
-        <item name="android:selectedDateVerticalBar">@color/calendarSelectedDayColor</item>
+        <!-- Color del texto de la fecha seleccionada -->
+        <item name="android:dateTextAppearance">@style/CalendarViewDateCustomText</item>
+        <!-- Color del texto de los días de la semana -->
+        <item name="android:weekDayTextAppearance">@style/CalendarViewWeekCustomText</item>
+    </style>
+
+    <!-- Estilo para el texto de las fechas -->
+    <style name="CalendarViewDateCustomText">
+        <item name="android:textColor">@drawable/calendar_date_selector</item> <!-- Usa el selector -->
+    </style>
+
+    <!-- Estilo para el texto de los días de la semana -->
+    <style name="CalendarViewWeekCustomText">
+        <item name="android:textColor">@color/calendarTextColor</item> <!-- Color del texto de los días de la semana -->
     </style>
 </resources>
