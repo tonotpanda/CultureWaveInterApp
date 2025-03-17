@@ -1,0 +1,56 @@
+<!-- res/layout/item_evento.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:background="@drawable/borde_redondo_evento"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Título del evento -->
+    <TextView
+        android:id="@+id/tvTituloEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/nunitobold"
+        android:text="Feria Arte Urbano"
+        android:textColor="@color/texto_evento"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- Fecha del evento -->
+    <TextView
+        android:id="@+id/tvFechaEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/nunito"
+        android:text="Fecha: 15/03/2025"
+        android:textColor="@color/texto_evento"
+        android:textSize="16sp" />
+
+    <!-- Lugar del evento -->
+    <TextView
+        android:id="@+id/tvLugarEvento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:fontFamily="@font/nunito"
+        android:text="Lugar: Plaza de las Artes"
+        android:textColor="@color/texto_evento"
+        android:textSize="16sp" />
+
+    <!-- Botón para más información -->
+    <Button
+        android:id="@+id/btnInformacion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/boton_evento"
+        android:fontFamily="@font/nunito"
+        android:text="Más información"
+        android:textColor="@color/texto_boton"
+        android:textSize="16sp" />
+
+</LinearLayout>

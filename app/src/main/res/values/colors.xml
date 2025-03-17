@@ -3,25 +3,21 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-
+    <!-- Colores "generales" -->
     <color name="background">#FFF8F1</color>
     <color name="navbarColor">#E4B363</color>
-    <color name="blue">#FF40BBEB</color>
 
-    <color name="selectedWeekBackground">#FFDDDDDD</color>
-    <color name="focusedMonthDate">#FF000000</color>
-    <color name="unfocusedMonthDate">#FF888888</color>
-    <color name="weekNumberColor">#FF0000FF</color>
-    <color name="weekSeparatorLineColor">#FFCCCCCC</color>
-    <color name="dateTextColor">#FF000000</color>
-    <color name="weekDayTextColor">#FF0000FF</color>
-
+    <!-- Colores calendario -->
     <color name="calendarSelectedDayColor">#121212</color>
     <color name="calendarTextColor">#121212</color>
     <color name="calendarBackgroundColor">#E4B363</color>
 
+    <!-- Color spinner -->
     <color name="spinnerColor">#AE5C32</color>
 
-
-
+    <!-- Colores información eventos -->
+    <color name="background_evento">#AE5C32</color>
+    <color name="texto_evento">#FFF8F1</color>
+    <color name="boton_evento">#E4B363</color>
+    <color name="texto_boton">#121212</color>
 </resources>

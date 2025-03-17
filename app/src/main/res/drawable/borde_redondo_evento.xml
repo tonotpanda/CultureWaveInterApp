@@ -1,0 +1,5 @@
+<!-- res/drawable/borde_redondo_evento.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/background_evento" /> <!-- Color de fondo -->
+    <corners android:radius="16dp" /> <!-- Bordes redondeos -->
+</shape>
