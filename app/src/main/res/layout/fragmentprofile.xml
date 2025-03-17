@@ -70,4 +70,24 @@
         android:padding="10dp"
         android:textSize="18dp" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito"
+        android:text="Género"
+        android:textSize="18sp" />
+
+    <Spinner
+        android:id="@+id/spinnerGenero"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/borde_edittext"
+        android:fontFamily="@font/nunito"
+        android:padding="10dp"
+        android:textSize="18dp" />
+
 </LinearLayout>
