@@ -1,8 +1,10 @@
 package com.example.culturewaveinter
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.culturewaveinter.Entities.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FragmentActivity : AppCompatActivity() {
@@ -10,6 +12,15 @@ class FragmentActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navbar)
+
+        val user = intent.getSerializableExtra("user") as? User
+
+        if (user != null) {
+            Toast.makeText(this, "Hola, ${user.name}", Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Error al cargar usuario", Toast.LENGTH_SHORT).show()
+        }
+
 
         // Obtén el BottomNavigationView desde el layout
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)

@@ -21,11 +21,11 @@
             android:src="@drawable/arrow" />
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="192dp"
+            android:layout_height="192dp"
             android:layout_gravity="center"
             android:paddingRight="8dp"
-            android:layout_marginStart="72dp"
+            android:layout_marginStart="55dp"
             android:paddingTop="40dp"
             android:src="@drawable/logo" />
     </LinearLayout>
@@ -49,7 +49,7 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/editTextGmail"
+        android:id="@+id/editTextEmail"
         android:layout_width="290dp"
         android:layout_height="48dp"
         android:layout_marginStart="40dp"
@@ -63,7 +63,27 @@
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nunito"
+        android:text="Nombre de usuario"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editTextUsername"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/borde_edittext"
+        android:fontFamily="@font/nunito"
+        android:padding="10dp"
+        android:textSize="18dp" />
+
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito"
         android:text="Contraseña"
         android:textSize="18sp" />
@@ -83,7 +103,7 @@
         android:layout_width="200dp"
         android:layout_height="20dp"
         android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito"
         android:text="Confirmar contraseña"
         android:textSize="18sp" />
@@ -106,7 +126,7 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/buttonLogIn"
+            android:id="@+id/buttonConfirm"
             android:layout_width="140dp"
             android:layout_height="wrap_content"
             android:background="@drawable/boton_personalizado"
