@@ -1,5 +1,6 @@
 package com.example.culturewaveinter
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
@@ -54,11 +55,13 @@ class RegisUserActivity : AppCompatActivity() {
                 name = username,
                 email = email,
                 password = encryptedPassword,
-                rol = 2
+                rol = 3
             )
 
             Toast.makeText(this, "Usuario creado", Toast.LENGTH_SHORT).show()
-
+            val resultIntent = Intent()
+            resultIntent.putExtra("newUser", newUser)
+            setResult(RESULT_OK, resultIntent)
             finish()
         }
     }
