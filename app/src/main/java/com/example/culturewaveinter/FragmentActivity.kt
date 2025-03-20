@@ -9,14 +9,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class FragmentActivity : AppCompatActivity() {
 
+    private lateinit var currentUser : User
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.navbar)
 
-        val user = intent.getSerializableExtra("user") as? User
+        currentUser = intent.getSerializableExtra("user") as? User ?: return
 
-        if (user != null) {
-            Toast.makeText(this, "Hola, ${user.name}", Toast.LENGTH_SHORT).show()
+        if (currentUser != null) {
+            Toast.makeText(this, "Hola, ${currentUser.name}", Toast.LENGTH_SHORT).show()
         } else {
             Toast.makeText(this, "Error al cargar usuario", Toast.LENGTH_SHORT).show()
         }
@@ -25,12 +27,12 @@ class FragmentActivity : AppCompatActivity() {
         // Obtén el BottomNavigationView desde el layout
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Configura el listener para manejar las selecciones de íconos
+        // Configura el listener para manejar las sselecciones de íconos
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.navigation_home -> {
                     // Cargar el fragmento de Home
-                    loadFragment(FragmentHome())
+                    loadFragment(FragmentHome.newInstance(currentUser))
                     true
                 }
                 R.id.navigation_events -> {
@@ -54,15 +56,15 @@ class FragmentActivity : AppCompatActivity() {
 
         // Cargar el fragmento inicial (por ejemplo, Home) al abrir la actividad
         if (savedInstanceState == null) {
-            loadFragment(FragmentHome()) // El fragmento que desees mostrar al inicio
+            loadFragment(FragmentHome.newInstance(currentUser)) // El fragmento que desees mostrar al inicio
         }
     }
 
     // Función para cargar el fragmento
     private fun loadFragment(fragment: Fragment) {
-        val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragmentContainer, fragment) // Asegúrate de que R.id.fragmentContainer sea el contenedor de tu fragmento
-        transaction.addToBackStack(null) // Esto permite que puedas regresar al fragmento anterior
-        transaction.commit()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
