@@ -59,7 +59,23 @@
         android:background="@drawable/borde_edittext"
         android:fontFamily="@font/nunito"
         android:padding="10dp"
-        android:textSize="18dp" />
+        android:textSize="18dp"
+        android:inputType="textPassword"/>
+
+
+    <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="85dp"
+        android:fontFamily="@font/nunito"
+        android:text="Olvidé mi contraseña"
+        android:textSize="14sp"
+        android:textStyle="italic"
+        android:clickable="true"
+        android:focusable="true"/>
 
     <LinearLayout
         android:layout_width="match_parent"
