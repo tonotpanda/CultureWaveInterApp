@@ -11,5 +11,5 @@ class Event (
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
     val status: String,
-    val Space: Space
+    val Space: Int
 )

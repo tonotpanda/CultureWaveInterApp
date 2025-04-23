@@ -2,7 +2,7 @@
     <!-- Estilo principal para el CalendarView -->
     <style name="CustomCalendarStyle">
         <!-- Fondo del calendario -->
-        <item name="android:background">@color/calendarBackgroundColor</item>
+        <item name="android:background">@color/orange</item>
         <!-- Color del texto de la fecha seleccionada -->
         <item name="android:dateTextAppearance">@style/CalendarViewDateCustomText</item>
         <!-- Color del texto de los días de la semana -->
@@ -16,6 +16,6 @@
 
     <!-- Estilo para el texto de los días de la semana -->
     <style name="CalendarViewWeekCustomText">
-        <item name="android:textColor">@color/calendarTextColor</item> <!-- Color del texto de los días de la semana -->
+        <item name="android:textColor">@color/black</item> <!-- Color del texto de los días de la semana -->
     </style>
 </resources>

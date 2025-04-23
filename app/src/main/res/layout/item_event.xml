@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="12dp"
+    android:background="@drawable/card_background"
+    android:layout_margin="8dp">
+
+    <TextView
+        android:id="@+id/textNameEvent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NOMBRE EVENTO"
+        android:fontFamily="@font/nunitobold"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp">
+
+        <TextView
+            android:id="@+id/textSpace"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sala"
+            android:fontFamily="@font/nunito"
+            android:textSize="16sp"
+            android:textFontWeight="650" />
+
+        <TextView
+            android:id="@+id/textDateTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="00/00/2025 - 00:00"
+            android:fontFamily="@font/nunito"
+            android:textSize="16sp"
+            android:textFontWeight="650" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/textDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Descripción del evento"
+        android:fontFamily="@font/nunito"
+        android:textSize="14sp"
+        android:textFontWeight="650"
+        android:maxLines="3"
+        android:ellipsize="end"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="4dp"
+        android:gravity="center_horizontal">
+
+        <Button
+            android:id="@+id/btnInformacion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/orange"
+            android:fontFamily="@font/nunito"
+            android:text="Más información"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,16 @@
+[
+    {
+      "id": 1,
+      "name": "Auditorio Central",
+      "capacity": 300,
+      "fixedSeats": 250,
+      "available": true
+    },
+    {
+      "id": 2,
+      "name": "Sala de Conferencias B",
+      "capacity": 100,
+      "fixedSeats": 80,
+      "available": false
+    }
+  ]

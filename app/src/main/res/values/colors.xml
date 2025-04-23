@@ -1,24 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="black">#121212</color>
+    <color name="white">#FFF8F1</color>
     <color name="blue">#40BBEB</color>
+    <color name="orange">#E4B363</color>
+    <color name="brown">#AE5C43</color>
 
-    <!-- Colores "generales" -->
-    <color name="background">#FFF8F1</color>
-    <color name="navbarColor">#E4B363</color>
-
-    <!-- Colores calendario -->
-    <color name="calendarSelectedDayColor">#121212</color>
-    <color name="calendarTextColor">#121212</color>
-    <color name="calendarBackgroundColor">#E4B363</color>
-
-    <!-- Color spinner -->
-    <color name="spinnerColor">#AE5C32</color>
-
-    <!-- Colores información eventos -->
-    <color name="background_evento">#AE5C32</color>
-    <color name="texto_evento">#FFF8F1</color>
-    <color name="boton_evento">#E4B363</color>
-    <color name="texto_boton">#121212</color>
 </resources>

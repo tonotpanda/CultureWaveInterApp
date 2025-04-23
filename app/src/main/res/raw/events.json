@@ -1,0 +1,67 @@
+[
+    {
+      "id": 1,
+      "name": "Conferencia Innovación",
+      "description": "Evento sobre nuevas tecnologías y tendencias.",
+      "capacity": 30,
+      "startDate": "2025-04-15T10:00:00",
+      "endDate": "2025-04-15T12:00:00",
+      "status": "Activo",
+      "space": {
+        "id": 1,
+        "name": "Sala Principal",
+        "capacity": 30,
+        "fixedSeats": 1,
+        "available": true
+      }
+    },
+    {
+      "id": 2,
+      "name": "Taller de Liderazgo",
+      "description": "Taller práctico para desarrollo de habilidades directivas.",
+      "capacity": 30,
+      "startDate": "2025-04-20T14:00:00",
+      "endDate": "2025-04-20T17:00:00",
+      "status": "Activo",
+      "space": {
+        "id": 1,
+        "name": "Sala Principal",
+        "capacity": 30,
+        "fixedSeats": 1,
+        "available": true
+      }
+    },
+    {
+      "id": 3,
+      "name": "Presentación de Proyecto",
+      "description": "Exposición de proyectos estudiantiles.",
+      "capacity": 40,
+      "startDate": "2025-04-18T09:00:00",
+      "endDate": "2025-04-18T11:00:00",
+      "status": "Activo",
+      "space": {
+        "id": 2,
+        "name": "Sala Alternativa",
+        "capacity": 40,
+        "fixedSeats": 1,
+        "available": true
+      }
+    },
+    {
+      "id": 4,
+      "name": "Charla Motivacional",
+      "description": "Sesión para mejorar el bienestar personal y laboral.",
+      "capacity": 40,
+      "startDate": "2025-04-22T16:00:00",
+      "endDate": "2025-04-22T18:00:00",
+      "status": "Activo",
+      "space": {
+        "id": 2,
+        "name": "Sala Alternativa",
+        "capacity": 40,
+        "fixedSeats": 1,
+        "available": true
+      }
+    }
+]
+  

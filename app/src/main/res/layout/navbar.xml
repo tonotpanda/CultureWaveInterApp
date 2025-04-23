@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <FrameLayout
@@ -17,14 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="75dp"
         android:layout_gravity="bottom"
-        android:background="@color/navbarColor"
+        android:background="@color/orange"
         android:elevation="8dp"
         app:itemActiveIndicatorStyle="@null"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="30dp"
-        app:itemIconTint="@color/bottom_nav_color"
+        app:itemIconTint="@color/blue"
         app:itemRippleColor="@null"
-        app:itemTextColor="@color/bottom_nav_color"
+        app:itemTextColor="@color/blue"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
 
