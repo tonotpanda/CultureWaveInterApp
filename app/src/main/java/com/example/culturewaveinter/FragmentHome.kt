@@ -27,6 +27,7 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
         val inputStream = context.assets.open(filename)
         val reader = InputStreamReader(inputStream)
         return reader.readText()
+
     }
 
     fun parseSpacesJson(context: Context): List<Space>{
