@@ -1,6 +1,7 @@
 package com.example.culturewaveinter.Entities
 
 import java.time.LocalDateTime
+import java.io.Serializable
 
 
 class Event (
@@ -11,5 +12,5 @@ class Event (
     val startDate: LocalDateTime,
     val endDate: LocalDateTime,
     val status: String,
-    val Space: Int
-)
+    val idSpace: Int
+) : Serializable

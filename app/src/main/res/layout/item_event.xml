@@ -62,15 +62,18 @@
         android:layout_marginBottom="4dp"
         android:gravity="center_horizontal">
 
-        <Button
-            android:id="@+id/btnInformacion"
-            android:layout_width="wrap_content"
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnInformation"
+            android:layout_width="140dp"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/orange"
+            android:background="@drawable/boton_personalizado"
             android:fontFamily="@font/nunito"
-            android:text="Más información"
+            android:text="Iniciar Sesión"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
 
     </LinearLayout>
 

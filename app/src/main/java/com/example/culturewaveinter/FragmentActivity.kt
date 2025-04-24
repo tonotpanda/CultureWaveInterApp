@@ -37,7 +37,7 @@ class FragmentActivity : AppCompatActivity() {
                 }
                 R.id.navigation_events -> {
                     // Cargar el fragmento de Events (o el que desees)
-                    loadFragment(FragmentEvents())
+                    loadFragment(FragmentCalendar())
                     true
                 }
                 R.id.navigation_chat -> {
@@ -61,10 +61,9 @@ class FragmentActivity : AppCompatActivity() {
     }
 
     // Función para cargar el fragmento
-    private fun loadFragment(fragment: Fragment) {
+    fun loadFragment(fragment: Fragment) {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
             .commit()
     }
 }

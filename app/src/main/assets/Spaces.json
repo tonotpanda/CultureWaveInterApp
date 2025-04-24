@@ -11,6 +11,6 @@
       "name": "Sala de Conferencias B",
       "capacity": 100,
       "fixedSeats": 80,
-      "available": false
+      "available": true
     }
-  ]
+]
