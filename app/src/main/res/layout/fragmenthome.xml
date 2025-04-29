@@ -22,12 +22,13 @@
         android:textStyle="bold" />
 
     <!-- Botón para crear nuevos eventos -->
+
     <ImageView
         android:id="@+id/buttonNewEvents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="start"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="10dp"
         android:src="@drawable/agregarevento" />
 
     <androidx.recyclerview.widget.RecyclerView

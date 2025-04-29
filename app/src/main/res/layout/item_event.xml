@@ -69,9 +69,9 @@
             android:layout_height="wrap_content"
             android:background="@drawable/boton_personalizado"
             android:fontFamily="@font/nunito"
-            android:text="Iniciar Sesión"
+            android:text="Más información"
             android:textColor="@color/white"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textStyle="bold"/>
 
 

@@ -7,11 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
-import com.example.culturewaveinter.R
 import java.time.format.DateTimeFormatter
 
 class EventAdapter(private val eventList: List<Event>, private val spaceList: List<Space>) :

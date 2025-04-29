@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center_horizontal">
 
     <ImageView
         android:layout_width="192dp"
         android:layout_height="192dp"
         android:layout_gravity="center"
-        android:paddingTop="40dp"
+        android:layout_marginTop="40dp"
         android:src="@drawable/logo" />
 
     <TextView
@@ -21,67 +21,75 @@
         android:textSize="20sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/nunito"
-        android:text="Correo electrónico"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/editTextEmail"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borde_edittext"
-        android:fontFamily="@font/nunito"
-        android:padding="10dp"
-        android:textSize="18dp" />
-
-    <TextView
-        android:layout_width="200dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="40dp"
-        android:fontFamily="@font/nunito"
-        android:text="Contraseña"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/editTextPassword"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borde_edittext"
-        android:fontFamily="@font/nunito"
-        android:padding="10dp"
-        android:textSize="18dp"
-        android:inputType="textPassword"/>
-
-
-    <TextView
-        android:id="@+id/textViewForgotPassword"
+    <!-- Grupo Correo -->
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="end"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="85dp"
-        android:fontFamily="@font/nunito"
-        android:text="Olvidé mi contraseña"
-        android:textSize="14sp"
-        android:textStyle="italic"
-        android:clickable="true"
-        android:focusable="true"/>
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:text="Correo electrónico"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextEmail"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:background="@drawable/borde_edittext"
+            android:fontFamily="@font/nunito"
+            android:padding="10dp"
+            android:textSize="18dp" />
+    </LinearLayout>
+
+    <!-- Grupo Contraseña + Olvidé mi contraseña -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/nunito"
+            android:text="Contraseña"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:background="@drawable/borde_edittext"
+            android:fontFamily="@font/nunito"
+            android:padding="10dp"
+            android:textSize="18dp"
+            android:inputType="textPassword"/>
+
+        <TextView
+            android:id="@+id/textViewForgotPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:paddingTop="5dp"
+            android:fontFamily="@font/nunito"
+            android:text="Olvidé mi contraseña"
+            android:textSize="14sp"
+            android:textStyle="italic"
+            android:gravity="end"
+            android:clickable="true"
+            android:focusable="true" />
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_marginTop="40dp">
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/buttonLogIn"
@@ -103,6 +111,5 @@
             android:text="Registrarse"
             android:textColor="@color/black"
             android:textSize="15sp" />
-
     </LinearLayout>
 </LinearLayout>
