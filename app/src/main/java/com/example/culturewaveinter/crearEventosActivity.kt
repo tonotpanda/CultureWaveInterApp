@@ -95,8 +95,10 @@ class crearEventosActivity : AppCompatActivity() {
         backButton.setOnClickListener {
             // Crear un Intent para abrir FragmentActivity
             val intent = Intent(this, FragmentActivity::class.java)
-            startActivity(intent) // Iniciar FragmentActivity
-            finish() // Finaliza la actividad actual (crearEventosActivity) para evitar volver a ella
+            intent.putExtra("fragmentToLoad", "home") // Indicas que cargue el fragmento Home
+            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            startActivity(intent)
+            finish()
         }
 
         val descripcionEvento =
