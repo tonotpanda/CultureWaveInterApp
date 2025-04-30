@@ -5,12 +5,18 @@ import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
+import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import java.util.ArrayList
 import java.util.Calendar
+import com.example.culturewaveinter.Entities.Space
 
 class crearEventosActivity : AppCompatActivity() {
 
@@ -23,10 +29,66 @@ class crearEventosActivity : AppCompatActivity() {
     private var hour: Int = 0
     private var minute: Int = 0
 
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.crear_eventos_layout)
+
+        val spinnerSpaces = findViewById<Spinner>(R.id.spinnerSpaces)
+        val spaces = intent.getSerializableExtra("spaceList") as? ArrayList<Space>
+
+        if (spaces != null && spaces.isNotEmpty()) {
+            val spaceNames = mutableListOf("SELECCIONA UN ESPACIO") + spaces.map { it.name }
+
+            val adapter = ArrayAdapter(
+                this,
+                android.R.layout.simple_spinner_item,
+                spaceNames
+                                      )
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            spinnerSpaces.adapter = adapter
+
+            spinnerSpaces.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                var selectedSpace: Space? = null
+                var isFirstSelection = true
+
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                                           ) {
+                    if (isFirstSelection && position != 0) {
+                        // Eliminar "SELECCIONA UN ESPACIO" del spinner
+                        val filteredNames = spaces.map { it.name }
+                        val newAdapter = ArrayAdapter(
+                            this@crearEventosActivity,
+                            android.R.layout.simple_spinner_item,
+                            filteredNames
+                                                     )
+                        newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+                        spinnerSpaces.adapter = newAdapter
+                        spinnerSpaces.setSelection(position - 1) // ajusta la posición porque quitamos uno
+                        isFirstSelection = false
+                        selectedSpace = spaces[position - 1]
+                        println("Espacio seleccionado: ${selectedSpace?.name}")
+                    } else if (!isFirstSelection) {
+                        selectedSpace = spaces[position]
+                        println("Espacio seleccionado: ${selectedSpace?.name}")
+                    } else {
+                        println("Selecciona un espacio")
+                        selectedSpace = null
+                    }
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    println("No se seleccionó ningún espacio")
+                }
+            }
+        } else {
+            println("No se recibió la lista de espacios o está vacía")
+    }
 
         // Encontrar el botón de "volver"
         val backButton = findViewById<ImageView>(R.id.back)
@@ -37,16 +99,13 @@ class crearEventosActivity : AppCompatActivity() {
             finish() // Finaliza la actividad actual (crearEventosActivity) para evitar volver a ella
         }
 
-        // Coger la info de la descripción del evento
         val descripcionEvento =
             findViewById<EditText>(R.id.editTextDescripcionEvento).text.toString()
 
-        // Inicializar vistas
         tvFechaInicio = findViewById(R.id.lbFechaInicio)
         btnSeleccionarFechaHora = findViewById(R.id.btnSeleccionarFechaHoraInicio)
 
 
-        // Inicializar calendario
         calendar = Calendar.getInstance()
         year = calendar.get(Calendar.YEAR)
         month = calendar.get(Calendar.MONTH)
@@ -54,7 +113,6 @@ class crearEventosActivity : AppCompatActivity() {
         hour = calendar.get(Calendar.HOUR_OF_DAY)
         minute = calendar.get(Calendar.MINUTE)
 
-        // Configurar el botón para abrir el DatePickerDialog
         btnSeleccionarFechaHora.setOnClickListener {
             mostrarDatePicker()
         }
@@ -63,12 +121,10 @@ class crearEventosActivity : AppCompatActivity() {
     private fun mostrarDatePicker() {
         val datePickerDialog =
             DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                // Guardar la fecha seleccionada
                 year = selectedYear
                 month = selectedMonth
                 day = selectedDay
 
-                // Mostrar el TimePicker después de seleccionar la fecha
                 mostrarTimePicker()
             }, year, month, day)
         datePickerDialog.show()

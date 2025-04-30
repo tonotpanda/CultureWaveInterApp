@@ -93,7 +93,8 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
 
         // Configura el clic del ImageView
         imageViewNewEvent.setOnClickListener {
-                val intent = Intent(activity, crearEventosActivity::class.java)
+                val intent = Intent(requireContext(), crearEventosActivity::class.java)
+                intent.putExtra("spaceList", ArrayList(spaceList))
                 startActivity(intent) // Inicia la actividad
 
         }
