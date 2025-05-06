@@ -40,7 +40,7 @@ class FragmentActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_profile -> {
-                    loadFragment(FragmentProfile())
+                    loadFragment(FragmentProfile.newInstance(currentUser))
                     true
                 }
                 else -> false
@@ -63,7 +63,7 @@ class FragmentActivity : AppCompatActivity() {
                     bottomNavigationView.selectedItemId = R.id.navigation_chat
                 }
                 "profile" -> {
-                    loadFragment(FragmentProfile())
+                    loadFragment(FragmentProfile.newInstance(currentUser))
                     bottomNavigationView.selectedItemId = R.id.navigation_profile
                 }
             }

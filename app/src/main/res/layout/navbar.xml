@@ -22,10 +22,9 @@
         app:itemActiveIndicatorStyle="@null"
         app:itemHorizontalTranslationEnabled="false"
         app:itemIconSize="30dp"
-        app:itemIconTint="@color/blue"
+        app:itemIconTint="@color/black"
         app:itemRippleColor="@null"
         app:itemTextColor="@color/blue"
         app:labelVisibilityMode="labeled"
         app:menu="@menu/bottom_nav_menu" />
-
 </LinearLayout>

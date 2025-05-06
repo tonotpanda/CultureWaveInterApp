@@ -76,18 +76,28 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito"
-        android:text="Género"
+        android:text="Cambiar contraseña"
         android:textSize="18sp" />
 
-    <Spinner
-        android:id="@+id/spinnerGenero"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnChangePassword"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borde_edittext"
-        android:fontFamily="@font/nunito"
-        android:padding="10dp"
-        android:textSize="18dp" />
+        android:layout_marginTop="20dp"
+        android:background="@drawable/boton_personalizado"
+        android:fontFamily="@font/nunitobold"
+        android:text="Cambiar Contraseña" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnLogOut"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/boton_personalizado"
+        android:fontFamily="@font/nunitobold"
+        android:textSize="20sp"
+        android:text="LOG OUT" />
 
 </LinearLayout>
