@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Api.ApiRepository.getUsers
 import com.example.culturewaveinter.Entities.User
 import com.example.culturewaveinter.databinding.ActivityMainBinding
