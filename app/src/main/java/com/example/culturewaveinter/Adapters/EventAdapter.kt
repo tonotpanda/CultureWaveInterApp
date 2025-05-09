@@ -1,4 +1,4 @@
-package com.example.culturewaveinter
+package com.example.culturewaveinter.Adapters
 
 import android.os.Build
 import android.os.Bundle
@@ -10,6 +10,9 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
+import com.example.culturewaveinter.FragmentActivity
+import com.example.culturewaveinter.FragmentEvents
+import com.example.culturewaveinter.R
 import java.time.format.DateTimeFormatter
 
 class EventAdapter(private val eventList: List<Event>, private val spaceList: List<Space>) :

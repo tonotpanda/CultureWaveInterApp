@@ -1,12 +1,13 @@
 package com.example.culturewaveinter.Entities
 
+import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
 
 data class User (
-    val id: Int,
-    val name: String,
-    val email: String,
-    val password: String,
+    @SerializedName("idUser") val id: Int,
+    var name: String,
+    var email: String,
+    var password: String,
     val rol: Int
 ) : Serializable

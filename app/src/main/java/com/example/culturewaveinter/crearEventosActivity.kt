@@ -1,158 +1,164 @@
 package com.example.culturewaveinter
 
-import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Spinner
-import android.widget.TextView
+import android.widget.*
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import java.util.ArrayList
-import java.util.Calendar
+import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
+import com.example.culturewaveinter.Entities.User
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class crearEventosActivity : AppCompatActivity() {
 
     private lateinit var tvFechaInicio: TextView
-    private lateinit var btnSeleccionarFechaHora: Button
-    private lateinit var calendar: Calendar
-    private var year: Int = 0
-    private var month: Int = 0
-    private var day: Int = 0
-    private var hour: Int = 0
-    private var minute: Int = 0
+    private lateinit var tvFechaFin: TextView
+    private lateinit var btnSeleccionarFechaInicio: Button
+    private lateinit var btnSeleccionarFechaFin: Button
+    private lateinit var btnGuardarEvento: Button
+    private lateinit var editTextCapacity: EditText
 
+    private var fechaInicio: LocalDateTime? = null
+    private var fechaFin: LocalDateTime? = null
 
-    @SuppressLint("MissingInflatedId")
+    private var selectedSpace: Space? = null
+    private var spaces: ArrayList<Space>? = null
+    private var currentUser: User? = null
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.crear_eventos_layout)
 
+        // Referencias UI
         val spinnerSpaces = findViewById<Spinner>(R.id.spinnerSpaces)
-        val spaces = intent.getSerializableExtra("spaceList") as? ArrayList<Space>
+        val editTextNombre = findViewById<EditText>(R.id.editTextNombreEvento)
+        val editTextDescripcion = findViewById<EditText>(R.id.editTextDescripcionEvento)
+        editTextCapacity = findViewById(R.id.editTextCapacity)
 
-        if (spaces != null && spaces.isNotEmpty()) {
-            val spaceNames = mutableListOf("SELECCIONA UN ESPACIO") + spaces.map { it.name }
+        tvFechaInicio = findViewById(R.id.lbFechaInicio)
+        tvFechaFin = findViewById(R.id.lbFechaFin)
+        btnSeleccionarFechaInicio = findViewById(R.id.btnSeleccionarFechaHoraInicio)
+        btnSeleccionarFechaFin = findViewById(R.id.btnSeleccionarFechaHoraFin)
+        btnGuardarEvento = findViewById(R.id.btnGuardarEvento)
 
+        // Recuperamos datos pasados
+        currentUser = intent.getSerializableExtra("user") as? User
+        spaces = intent.getSerializableExtra("spaceList") as? ArrayList<Space>
+
+        // Configuramos spinner de espacios
+        spaces?.let {
             val adapter = ArrayAdapter(
                 this,
                 android.R.layout.simple_spinner_item,
-                spaceNames
+                it.map { space -> space.name }
                                       )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerSpaces.adapter = adapter
-
             spinnerSpaces.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-                var selectedSpace: Space? = null
-                var isFirstSelection = true
-
                 override fun onItemSelected(
-                    parent: AdapterView<*>?,
-                    view: View?,
-                    position: Int,
-                    id: Long
+                    parent: AdapterView<*>?, view: android.view.View?,
+                    position: Int, id: Long
                                            ) {
-                    if (isFirstSelection && position != 0) {
-                        // Eliminar "SELECCIONA UN ESPACIO" del spinner
-                        val filteredNames = spaces.map { it.name }
-                        val newAdapter = ArrayAdapter(
-                            this@crearEventosActivity,
-                            android.R.layout.simple_spinner_item,
-                            filteredNames
-                                                     )
-                        newAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-                        spinnerSpaces.adapter = newAdapter
-                        spinnerSpaces.setSelection(position - 1) // ajusta la posición porque quitamos uno
-                        isFirstSelection = false
-                        selectedSpace = spaces[position - 1]
-                        println("Espacio seleccionado: ${selectedSpace?.name}")
-                    } else if (!isFirstSelection) {
-                        selectedSpace = spaces[position]
-                        println("Espacio seleccionado: ${selectedSpace?.name}")
-                    } else {
-                        println("Selecciona un espacio")
-                        selectedSpace = null
-                    }
+                    selectedSpace = it[position]
                 }
-
                 override fun onNothingSelected(parent: AdapterView<*>?) {
-                    println("No se seleccionó ningún espacio")
+                    selectedSpace = null
                 }
             }
-        } else {
-            println("No se recibió la lista de espacios o está vacía")
-    }
+        }
 
-        // Encontrar el botón de "volver"
-        val backButton = findViewById<ImageView>(R.id.back)
-        backButton.setOnClickListener {
-            // Crear un Intent para abrir FragmentActivity
-            val intent = Intent(this, FragmentActivity::class.java)
-            intent.putExtra("fragmentToLoad", "home") // Indicas que cargue el fragmento Home
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-            startActivity(intent)
+        btnSeleccionarFechaFin.isEnabled = false
+
+        // Pickers de fecha/hora
+        btnSeleccionarFechaInicio.setOnClickListener { mostrarDateTimePicker(true) }
+        btnSeleccionarFechaFin.setOnClickListener { mostrarDateTimePicker(false) }
+
+        // Guardar evento: devolvemos como resultado
+        btnGuardarEvento.setOnClickListener {
+            val nombre = editTextNombre.text.toString().trim()
+            val descripcion = editTextDescripcion.text.toString().trim()
+            val capacidadTexto = editTextCapacity.text.toString().trim()
+            val capacidad = capacidadTexto.toIntOrNull()
+
+            if (selectedSpace == null || nombre.isEmpty() ||
+                descripcion.isEmpty() || fechaInicio == null ||
+                fechaFin == null || capacidad == null || capacidad <= 0
+            ) {
+                Toast.makeText(
+                    this,
+                    "Por favor completa todos los campos correctamente",
+                    Toast.LENGTH_SHORT
+                              ).show()
+                return@setOnClickListener
+            }
+
+            val nuevoEvento = Event(
+                id = UUID.randomUUID().toString(),
+                name = nombre,
+                description = descripcion,
+                capacity = capacidad,
+                startDate = fechaInicio!!,
+                endDate = fechaFin!!,
+                status = "To Do",
+                idSpace = selectedSpace!!.id
+                                   )
+
+            // Preparamos el Intent de resultado
+            val resultIntent = Intent().apply {
+                putExtra("nuevoEvento", nuevoEvento)
+            }
+            setResult(RESULT_OK, resultIntent)
             finish()
         }
 
-        val descripcionEvento =
-            findViewById<EditText>(R.id.editTextDescripcionEvento).text.toString()
-
-        tvFechaInicio = findViewById(R.id.lbFechaInicio)
-        btnSeleccionarFechaHora = findViewById(R.id.btnSeleccionarFechaHoraInicio)
-
-
-        calendar = Calendar.getInstance()
-        year = calendar.get(Calendar.YEAR)
-        month = calendar.get(Calendar.MONTH)
-        day = calendar.get(Calendar.DAY_OF_MONTH)
-        hour = calendar.get(Calendar.HOUR_OF_DAY)
-        minute = calendar.get(Calendar.MINUTE)
-
-        btnSeleccionarFechaHora.setOnClickListener {
-            mostrarDatePicker()
+        // Back: cancelamos y cerramos
+        findViewById<ImageView>(R.id.back).setOnClickListener {
+            setResult(RESULT_CANCELED)
+            finish()
         }
     }
 
-    private fun mostrarDatePicker() {
-        val datePickerDialog =
-            DatePickerDialog(this, { _, selectedYear, selectedMonth, selectedDay ->
-                year = selectedYear
-                month = selectedMonth
-                day = selectedDay
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun mostrarDateTimePicker(esInicio: Boolean) {
+        val calendar = Calendar.getInstance()
 
-                mostrarTimePicker()
-            }, year, month, day)
-        datePickerDialog.show()
-    }
+        DatePickerDialog(this, { _, year, month, dayOfMonth ->
+            TimePickerDialog(this, { _, hourOfDay, minute ->
+                val selectedDateTime = LocalDateTime.of(
+                    year, month + 1, dayOfMonth, hourOfDay, minute
+                                                       )
 
-    private fun mostrarTimePicker() {
-        val timePickerDialog = TimePickerDialog(this, { _, selectedHour, selectedMinute ->
-            // Guardar la hora seleccionada
-            hour = selectedHour
-            minute = selectedMinute
-
-            // Formatear la hora para que siempre tenga dos dígitos (ejemplo: 09:05 en lugar de 9:5)
-            val horaFormateada = String.format("%02d:%02d", hour, minute)
-
-            // Formatear la fecha para que siempre tenga dos dígitos (ejemplo: 01/05/2023 en lugar de 1/5/2023)
-            val diaFormateado = String.format("%02d", day)
-            val mesFormateado =
-                String.format("%02d", month + 1) // Sumar 1 porque los meses comienzan en 0
-
-            // Crear el texto final con el enunciado y la fecha/hora seleccionada
-            val textoFinal =
-                "Fecha inicio evento: $diaFormateado/$mesFormateado/$year $horaFormateada"
-
-            // Actualizar el TextView con el texto final
-            tvFechaInicio.text = textoFinal
-        }, hour, minute, true)
-        timePickerDialog.show()
+                if (esInicio) {
+                    fechaInicio = selectedDateTime
+                    tvFechaInicio.text =
+                        "Fecha inicio evento: ${selectedDateTime.format(formatter)}"
+                    btnSeleccionarFechaFin.isEnabled = true
+                    fechaFin = null
+                    tvFechaFin.text = "Fecha fin evento"
+                } else {
+                    if (fechaInicio == null || !selectedDateTime.isAfter(fechaInicio)) {
+                        Toast.makeText(
+                            this,
+                            "La fecha de fin debe ser posterior a la de inicio",
+                            Toast.LENGTH_SHORT
+                                      ).show()
+                        return@TimePickerDialog
+                    }
+                    fechaFin = selectedDateTime
+                    tvFechaFin.text =
+                        "Fecha fin evento: ${selectedDateTime.format(formatter)}"
+                }
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
+        }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
 }

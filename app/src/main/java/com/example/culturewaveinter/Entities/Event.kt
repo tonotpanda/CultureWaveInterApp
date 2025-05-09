@@ -4,8 +4,8 @@ import java.time.LocalDateTime
 import java.io.Serializable
 
 
-class Event (
-    val id: Int,
+class Event(
+    val id: String,
     val name: String,
     val description: String,
     val capacity: Int,
@@ -13,4 +13,4 @@ class Event (
     val endDate: LocalDateTime,
     val status: String,
     val idSpace: Int
-) : Serializable
+           ) : Serializable

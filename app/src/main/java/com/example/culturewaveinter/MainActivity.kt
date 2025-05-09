@@ -2,37 +2,47 @@ package com.example.culturewaveinter
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.culturewaveinter.Api.ApiRepository
+import com.example.culturewaveinter.Api.ApiRepository.getUsers
 import com.example.culturewaveinter.Entities.User
+import com.example.culturewaveinter.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
+import java.io.Serializable
 import java.security.MessageDigest
 
 class MainActivity : AppCompatActivity() {
 
-    private val users = mutableListOf(
-        User(1, "Admin", "admin@example.com", encryptSHA256("1234"), 2),
-        User(2, "User", "user@example.com", encryptSHA256("1234"), 3)
-   )
+    private lateinit var binding: ActivityMainBinding
+    private var users = mutableListOf<User>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val buttonRegister = findViewById<Button>(R.id.buttonRegister)
-        buttonRegister.setOnClickListener{
-            val intent = Intent(this, RegisUserActivity::class.java)
-            startActivityForResult(intent, 1001)
+        lifecycleScope.launch {
+            try {
+                val apiUsers = getUsers()
+                users = apiUsers?.toMutableList() as MutableList<User>
+            }catch (e: Exception)
+            {
+                println("API Connexion Error")
+            }
         }
 
-        val emailEditText = findViewById<EditText>(R.id.editTextEmail)
-        val passwordEditText = findViewById<EditText>(R.id.editTextPassword)
-        val buttonLogin = findViewById<Button>(R.id.buttonLogIn)
+        binding.buttonRegister.setOnClickListener {
+            startActivityForResult(
+                Intent(this, RegisUserActivity::class.java),
+                1001
+                                  )
+        }
 
-        buttonLogin.setOnClickListener{
-            val email = emailEditText.text.toString().trim()
-            val password = passwordEditText.text.toString().trim()
+        binding.buttonLogIn.setOnClickListener {
+            val email = binding.editTextEmail.text.toString().trim()
+            val password = binding.editTextPassword.text.toString().trim()
 
             if (email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Ingresa correo y contraseña", Toast.LENGTH_SHORT).show()
@@ -40,35 +50,45 @@ class MainActivity : AppCompatActivity() {
             }
 
             val encryptedPassword = encryptSHA256(password)
-
-            val user = users.find { it.email == email && it.password == encryptedPassword }
+            val user = verifyUser(email, password, users)
 
             if (user != null) {
-                val intent = Intent(this, FragmentActivity::class.java)
-                intent.putExtra("user", user)
-                startActivity(intent)
-                finish()
-            }else {
+                Intent(this, FragmentActivity::class.java).also {
+                    it.putExtra("user", user as Serializable)
+                    startActivity(it)
+                    finish()
+                }
+            } else {
                 Toast.makeText(this, "Correo o contraseña incorrectos", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 1001 && resultCode == RESULT_OK) {
-            val newUser = data?.getSerializableExtra("newUser") as? User
-            if(newUser != null) {
-                users.add(newUser)
+            (data?.getSerializableExtra("newUser") as? User)?.let {
+                users.add(it)
                 Toast.makeText(this, "Usuario registrado correctamente", Toast.LENGTH_SHORT).show()
             }
         }
     }
 
-    private fun encryptSHA256(password: String): String{
-        val bytes = password.toByteArray()
+    private fun verifyUser(userName : String, password : String, userList: MutableList<User>) : User?{
+
+        for (user in userList) {
+            if (userName == user.email && password == user.password) {
+                return user
+            }
+        }
+
+        return null
+    }
+
+    private fun encryptSHA256(password: String): String {
         val digest = MessageDigest.getInstance("SHA-256")
-        val hash = digest.digest(bytes)
+        val hash = digest.digest(password.toByteArray())
         return hash.joinToString("") { "%02x".format(it) }
     }
 }

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.User
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -49,9 +50,20 @@ class FragmentActivity : AppCompatActivity() {
 
         if (savedInstanceState == null) {
             val fragmentToLoad = intent.getStringExtra("fragmentToLoad") ?: "home"
+
             when (fragmentToLoad) {
                 "home" -> {
-                    loadFragment(FragmentHome.newInstance(currentUser))
+                    val fragmentHome = FragmentHome.newInstance(currentUser)
+
+                    // Comprobamos si se pasó un nuevo evento
+                    val nuevoEvento = intent.getSerializableExtra("nuevoEvento") as? Event
+                    if (nuevoEvento != null) {
+                        val bundle = Bundle()
+                        bundle.putSerializable("nuevoEvento", nuevoEvento)
+                        fragmentHome.arguments?.putAll(bundle)
+                    }
+
+                    loadFragment(fragmentHome)
                     bottomNavigationView.selectedItemId = R.id.navigation_home
                 }
                 "calendar" -> {

@@ -103,6 +103,7 @@
             android:text="Seleccionar fecha y hora" />
 
         <TextView
+            android:id="@+id/lbFechaFin"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_gravity="center"
@@ -120,6 +121,27 @@
             android:background="@drawable/boton_personalizado"
             android:fontFamily="@font/nunitobold"
             android:text="Seleccionar fecha y hora" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/nunito"
+            android:text="Capacidad del evento"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextCapacity"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borde_edittext"
+            android:fontFamily="@font/nunito"
+            android:padding="10dp"
+            android:inputType="number"
+            android:textSize="18sp" />
 
         <TextView
             android:layout_width="wrap_content"

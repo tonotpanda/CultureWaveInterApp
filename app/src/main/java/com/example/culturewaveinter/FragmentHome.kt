@@ -6,10 +6,14 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.culturewaveinter.Adapters.EventAdapter
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
@@ -23,40 +27,15 @@ import java.time.format.DateTimeFormatter
 
 class FragmentHome : Fragment(R.layout.fragmenthome) {
 
-    fun loadJsonFromAsset(context: Context, filename: String): String {
-        val inputStream = context.assets.open(filename)
-        val reader = InputStreamReader(inputStream)
-        return reader.readText()
-
-    }
-
-    fun parseSpacesJson(context: Context): List<Space>{
-        val json = loadJsonFromAsset(context, "Spaces.json")
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<Space>>() {}.type
-        return gson.fromJson(json, type)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    fun parseEventsJson(context: Context): List<Event>{
-        val json = loadJsonFromAsset(context, "Events.json")
-        val gson = Gson()
-        val type: Type = object : TypeToken<List<Event>>() {}.type
-
-        val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
-        val gsonWithDate = Gson().newBuilder().registerTypeAdapter(LocalDateTime::class.java, JsonDeserializer<LocalDateTime> { json, _, _ ->
-            LocalDateTime.parse(json.asString, formatter)
-        }).create()
-
-        return gsonWithDate.fromJson(json, type)
-    }
-
     private lateinit var spaceList: List<Space>
-    private lateinit var eventsList: List<Event>
-
+    private val eventsList: MutableList<Event> = mutableListOf()
+    private lateinit var eventAdapter: EventAdapter
 
     private lateinit var imageViewNewEvent: ImageView
     private var currentUser: User? = null
+
+    // Lanzador para recibir el nuevo evento
+    private lateinit var newEventLauncher: ActivityResultLauncher<Intent>
 
     companion object {
         fun newInstance(user: User): FragmentHome {
@@ -68,35 +47,82 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
         }
     }
 
+    private fun loadJsonFromAsset(context: Context, filename: String): String {
+        val inputStream = context.assets.open(filename)
+        val reader = InputStreamReader(inputStream)
+        return reader.readText()
+    }
+
+    private fun parseSpacesJson(context: Context): List<Space> {
+        val json = loadJsonFromAsset(context, "Spaces.json")
+        val gson = Gson()
+        val type: Type = object : TypeToken<List<Space>>() {}.type
+        return gson.fromJson(json, type)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun parseEventsJson(context: Context): List<Event> {
+        val json = loadJsonFromAsset(context, "Events.json")
+        val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
+        val gsonWithDate = Gson().newBuilder().registerTypeAdapter(
+            LocalDateTime::class.java,
+            JsonDeserializer<LocalDateTime> { json, _, _ ->
+                LocalDateTime.parse(json.asString, formatter)
+            }
+                                                                  ).create()
+        val type: Type = object : TypeToken<List<Event>>() {}.type
+        return gsonWithDate.fromJson(json, type)
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // Registramos el lanzador para StartActivityForResult
+        newEventLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+                                                    ) { result ->
+            if (result.resultCode == AppCompatActivity.RESULT_OK) {
+                val nuevoEvento = result.data
+                    ?.getSerializableExtra("nuevoEvento") as? Event
+                if (nuevoEvento != null) {
+                    // Añadimos y notificamos al adapter
+                    eventsList.add(nuevoEvento)
+                    eventAdapter.notifyItemInserted(eventsList.size - 1)
+                }
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         context?.let {
             spaceList = parseSpacesJson(it)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                eventsList = parseEventsJson(it)
-            } else {
-                eventsList = emptyList() // alternativa segura si versión < Android O
-            }
+            val parsedEvents = parseEventsJson(it)
+            eventsList.addAll(parsedEvents)
         }
 
+        // Recuperamos usuario
+        currentUser = arguments?.getSerializable("user") as? User
+
+        // Configuramos RecyclerView
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerViewEventos)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        recyclerView.adapter = EventAdapter(eventsList, spaceList)
+        eventAdapter = EventAdapter(eventsList, spaceList)
+        recyclerView.adapter = eventAdapter
 
-        currentUser = arguments?.getSerializable("user") as? User
         imageViewNewEvent = view.findViewById(R.id.buttonNewEvents)
-
-        if(currentUser?.rol ==3) {
+        if (currentUser?.rol == 3) {
+            // Ocultamos botón si no tiene permisos
             imageViewNewEvent.visibility = View.GONE
         }
 
-        // Configura el clic del ImageView
         imageViewNewEvent.setOnClickListener {
-                val intent = Intent(requireContext(), crearEventosActivity::class.java)
-                intent.putExtra("spaceList", ArrayList(spaceList))
-                startActivity(intent) // Inicia la actividad
-
+            // Lanzamos CreateEventActivity esperando resultado
+            val intent = Intent(requireContext(), crearEventosActivity::class.java)
+            intent.putExtra("spaceList", ArrayList(spaceList))
+            intent.putExtra("user", currentUser)
+            newEventLauncher.launch(intent)
         }
     }
 }
