@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/nunitobold"
-        android:text="CULTUREWAVE"
+        android:text="@string/app_name"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -27,7 +27,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/nunitobold"
         android:paddingTop="10dp"
-        android:text="Información básica"
+        android:text="@string/basicinformation_profile"
         android:textSize="20sp" />
 
     <TextView
@@ -36,7 +36,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="40dp"
         android:fontFamily="@font/nunito"
-        android:text="Nombre usuario"
+        android:text="@string/username_profile"
         android:textSize="18sp" />
 
     <EditText
@@ -56,7 +56,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito"
-        android:text="Correo electronico"
+        android:text="@string/email_profile"
         android:textSize="18sp" />
 
     <EditText
@@ -76,7 +76,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/nunito"
-        android:text="Cambiar contraseña"
+        android:text="@string/changepasswd_profile"
         android:textSize="18sp" />
 
     <EditText
@@ -99,7 +99,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/boton_personalizado"
         android:fontFamily="@font/nunitobold"
-        android:text="Cambiar Contraseña" />
+        android:text="@string/changepasswd_profile" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnLogOut"
@@ -110,6 +110,43 @@
         android:background="@drawable/boton_personalizado"
         android:fontFamily="@font/nunitobold"
         android:textSize="20sp"
-        android:text="LOG OUT" />
+        android:text="@string/logout_profile" />
 
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingTop="30dp"
+        android:weightSum="3">
+
+        <ImageView
+            android:id="@+id/esFlagImg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/espflag" />
+
+        <ImageView
+            android:id="@+id/catFlagImg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/catflag" />
+
+        <ImageView
+            android:id="@+id/enFlagImg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:src="@drawable/ingflag" />
+    </LinearLayout>
 </LinearLayout>

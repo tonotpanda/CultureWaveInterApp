@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/nunitobold"
-            android:text="CULTUREWAVE"
+            android:text="@string/app_name"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/nunito"
-                android:text="Correo electrónico"
+                android:text="@string/email_register"
                 android:textSize="18sp" />
 
             <EditText
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/nunito"
-                android:text="Nombre de usuario"
+                android:text="@string/nameuser_register"
                 android:textSize="18sp" />
 
             <EditText
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/nunito"
-                android:text="Contraseña"
+                android:text="@string/passwd_register"
                 android:textSize="18sp" />
 
             <EditText
@@ -115,7 +115,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/nunito"
-                android:text="Confirmar contraseña"
+                android:text="@string/confirmpasswd_register"
                 android:textSize="18sp" />
 
             <EditText
@@ -143,7 +143,7 @@
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/boton_personalizado"
-                android:text="Confirmar"
+                android:text="@string/confirm_register"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
         </LinearLayout>

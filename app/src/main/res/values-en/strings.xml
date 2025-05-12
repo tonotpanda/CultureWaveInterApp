@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">CultureWave</string>
+
+    <string-array name="genero_opciones">
+        <item>Select an option</item>
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+
+    <!-- LOGIN -->
+    <string name="email_login">Email</string>
+    <string name="password_login">Password</string>
+    <string name="forgotpassword_login">Forgot my password</string>
+    <string name="buttonlogin_login">Log In</string>
+    <string name="buttonresgister_login">Register</string>
+
+    <!-- CREATE EVENTS -->
+    <string name="selectspace_createevents">Select a space</string>
+    <string name="nameevent_createevents">Event Name</string>
+    <string name="datestartevent_createevents">Event start date</string>
+    <string name="selectdatehour_createevents">Select date and time</string>
+    <string name="dateendevent_createevents">Event end date</string>
+    <string name="capacityevent_createevents">Event capacity</string>
+    <string name="descriptionevent_createevents">Event description</string>
+    <string name="hint_createevents">Write the event description here...</string>
+    <string name="saveevent_createevents">Save event</string>
+
+    <!-- CHAT -->
+    <string name="globalchat_chat">Global Chat</string>
+    <string name="hint_chat">Type a message...</string>
+
+    <!-- EVENTS -->
+    <string name="eventname_event">Event Name</string>
+    <string name="eventdescription_event">Event Description:</string>
+    <string name="completedescription_event">Full event description...</string>
+    <string name="date_events">Date:</string>
+    <string name="datenum_events">15/03/2025</string>
+    <string name="Timetable_events">Timetable:</string>
+    <string name="eventtime_events">00:00 - 00:00</string>
+    <string name="place_events">Place:</string>
+    <string name="placeevent_events">Plaza de las artes.</string>
+    <string name="book_events">Book</string>
+
+    <!-- PROFILE -->
+    <string name="basicinformation_profile">Basic Information</string>
+    <string name="username_profile">Username</string>
+    <string name="email_profile">Email</string>
+    <string name="changepasswd_profile">Change password</string>
+    <string name="logout_profile">Log Out</string>
+
+    <!-- ITEM EVENT -->
+    <string name="nameevent_itemevent">EVENT NAME</string>
+    <string name="place_itemevent">Room</string>
+    <string name="date_itemevent">00/00/2025 - 00:00</string>
+    <string name="description_itemevent">Event description</string>
+    <string name="moreinfo_itemevent">More information</string>
+
+    <!-- REGISTER -->
+    <string name="email_register">Email</string>
+    <string name="nameuser_register">Username</string>
+    <string name="passwd_register">Password</string>
+    <string name="confirmpasswd_register">Confirm password</string>
+    <string name="confirm_register">Confirm</string>
+</resources>

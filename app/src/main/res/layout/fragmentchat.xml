@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/nunitobold"
-        android:text="CULTUREWAVE"
+        android:text="@string/app_name"
         android:textSize="20sp"
         android:textStyle="bold" />
 
@@ -28,7 +28,7 @@
         android:layout_gravity="center"
         android:fontFamily="@font/nunito"
         android:paddingTop="10dp"
-        android:text="Chat Global"
+        android:text="@string/globalchat_chat"
         android:textSize="20sp" />
 
     <!-- RecyclerView para mostrar los mensajes -->
@@ -58,7 +58,7 @@
             android:layout_weight="1"
             android:background="@drawable/borde_edittext"
             android:fontFamily="@font/nunito"
-            android:hint="Escribe un mensaje..."
+            android:hint="@string/hint_chat"
             android:padding="10dp"
             android:textSize="18sp" />
 

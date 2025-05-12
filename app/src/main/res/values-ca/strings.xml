@@ -1,0 +1,64 @@
+<resources>
+    <string name="app_name">CultureWave</string>
+
+    <string-array name="genero_opciones">
+        <item>Selecciona una opció</item>
+        <item>Masculí</item>
+        <item>Femení</item>
+    </string-array>
+
+    <!-- LOGIN -->
+    <string name="email_login">Correu electrònic</string>
+    <string name="password_login">Contrasenya</string>
+    <string name="forgotpassword_login">He oblidat la meva contrasenya</string>
+    <string name="buttonlogin_login">Iniciar Sessió</string>
+    <string name="buttonresgister_login">Registrar-se</string>
+
+    <!-- CREATE EVENTS -->
+    <string name="selectspace_createevents">Selecciona un espai</string>
+    <string name="nameevent_createevents">Nom esdeveniment</string>
+    <string name="datestartevent_createevents">Data inici del esdeveniment</string>
+    <string name="selectdatehour_createevents">Seleccionar data i hora</string>
+    <string name="dateendevent_createevents">Data de fi del esdeveniment</string>
+    <string name="capacityevent_createevents">Capacitat del esdeveniment</string>
+    <string name="descriptionevent_createevents">Descripció del esdeveniment</string>
+    <string name="hint_createevents">Escriu la descripció del esdeveniment aquí...</string>
+    <string name="saveevent_createevents">Desar esdeveniment</string>
+
+    <!-- CHAT -->
+    <string name="globalchat_chat">Xat Global</string>
+    <string name="hint_chat">Escriu un missatge...</string>
+
+    <!-- EVENTS -->
+    <string name="eventname_event">Nom del esdeveniment</string>
+    <string name="eventdescription_event">Descripció del esdeveniment:</string>
+    <string name="completedescription_event">Descripció completa del esdeveniment...</string>
+    <string name="date_events">Data:</string>
+    <string name="datenum_events">15/03/2025</string>
+    <string name="Timetable_events">Horari:</string>
+    <string name="eventtime_events">00:00 - 00:00</string>
+    <string name="place_events">Lloc:</string>
+    <string name="placeevent_events">Plaça de les arts.</string>
+    <string name="book_events">Reservar</string>
+
+    <!-- PROFILE -->
+    <string name="basicinformation_profile">Informació bàsica</string>
+    <string name="username_profile">Nom usuari</string>
+    <string name="email_profile">Correu electrònic</string>
+    <string name="changepasswd_profile">Canviar contrasenya</string>
+    <string name="logout_profile">Tancar sessió</string>
+
+    <!-- ITEM EVENT -->
+    <string name="nameevent_itemevent">NOM ESDEVENIMENT</string>
+    <string name="place_itemevent">Sala</string>
+    <string name="date_itemevent">00/00/2025 - 00:00</string>
+    <string name="description_itemevent">Descripció del esdeveniment</string>
+    <string name="moreinfo_itemevent">Més informació</string>
+
+    <!-- REGISTER -->
+    <string name="email_register">Correu electrònic</string>
+    <string name="nameuser_register">Nom usuari</string>
+    <string name="passwd_register">Contrasenya</string>
+    <string name="confirmpasswd_register">Confirmar contrasenya</string>
+    <string name="confirm_register">Confirmar</string>
+</resources>

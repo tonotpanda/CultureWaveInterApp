@@ -6,4 +6,59 @@
         <item>Masculino</item>
         <item>Femenino</item>
     </string-array>
+
+    LOGIN
+    <string name="email_login">Correo electrónico</string>
+    <string name="password_login">Contraseña</string>
+    <string name="forgotpassword_login">Olvidé mi contraseña</string>
+    <string name="buttonlogin_login">Iniciar Sesión</string>
+    <string name="buttonresgister_login">Registrarse</string>
+
+    CREATE EVENTS
+    <string name="selectspace_createevents">Selecciona un espacio</string>
+    <string name="nameevent_createevents">Nombre del evento</string>
+    <string name="datestartevent_createevents">Fecha inicio evento</string>
+    <string name="selectdatehour_createevents">Seleccionar fecha y hora</string>
+    <string name="dateendevent_createevents">Fecha fin evento</string>
+    <string name="capacityevent_createevents">Capacidad del evento</string>
+    <string name="descriptionevent_createevents">Descripción del evento</string>
+    <string name="hint_createevents">Escribe la descripción del evento aquí...</string>
+    <string name="saveevent_createevents">Guardar evento</string>
+
+    CHAT
+    <string name="globalchat_chat">Chat Global</string>
+    <string name="hint_chat">Escribe un mensaje...</string>
+
+    EVENTS
+    <string name="eventname_event">Event Name</string>
+    <string name="eventdescription_event">Descripción del evento:</string>
+    <string name="completedescription_event">Descripción completa del evento...</string>
+    <string name="date_events">Fecha:</string>
+    <string name="datenum_events">15/03/2025</string>
+    <string name="Timetable_events">Horario:</string>
+    <string name="eventtime_events">00:00 - 00:00</string>
+    <string name="place_events">Lugar:</string>
+    <string name="placeevent_events">Plaza de las artes.</string>
+    <string name="book_events">Reservar</string>
+
+    PROFILE
+    <string name="basicinformation_profile">Información básica</string>
+    <string name="username_profile">Nombre usuario</string>
+    <string name="email_profile">Correo electronico</string>
+    <string name="changepasswd_profile">Cambiar contraseña</string>
+    <string name="logout_profile">LOG OUT</string>
+
+    ITEM EVENT
+    <string name="nameevent_itemevent">NOMBRE EVENTO</string>
+    <string name="place_itemevent">Sala</string>
+    <string name="date_itemevent">00/00/2025 - 00:00</string>
+    <string name="description_itemevent"> Descripción del evento</string>
+    <string name="moreinfo_itemevent">Más información</string>
+
+    REGISTER
+    <string name="email_register">Correo electrónico</string>
+    <string name="nameuser_register">Nombre de usuario</string>
+    <string name="passwd_register">Contraseña</string>
+    <string name="confirmpasswd_register">Confirmar contraseña</string>
+    <string name="confirm_register">Confirmar</string>
 </resources>

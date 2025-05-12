@@ -49,7 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Event Name"
+                android:text="@string/eventname_event"
                 android:textColor="@android:color/white"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -59,7 +59,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="4dp"
-                android:text="Descripción del evento:"
+                android:text="@string/descriptionevent_createevents"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="Descripción completa del evento..."
+                android:text="@string/completedescription_event"
                 android:textColor="@android:color/white"
                 android:textSize="14sp"/>
 
@@ -77,7 +77,7 @@
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Fecha:"
+                android:text="@string/date_events"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -87,14 +87,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="15/03/2025"
+                android:text="@string/datenum_events"
                 android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Horario:"
+                android:text="@string/Timetable_events"
                 android:textColor="@android:color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -104,14 +104,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
-                android:text="00:00 - 00:00"
+                android:text="@string/eventtime_events"
                 android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/space"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Lugar:"
+                android:text="@string/place_events"
                 android:textColor="@android:color/white"
                 android:textStyle="bold"
                 android:textSize="18sp"/>
@@ -121,8 +121,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
-                android:text="Plaza de las artes."
-
+                android:text="@string/placeevent_events"
                 android:textColor="@android:color/white" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -131,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/boton_personalizado"
                 android:fontFamily="@font/nunitobold"
-                android:text="Reservar"
+                android:text="@string/book_events"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
         </LinearLayout>
