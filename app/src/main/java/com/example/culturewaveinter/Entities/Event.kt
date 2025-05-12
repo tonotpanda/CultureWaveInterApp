@@ -6,12 +6,13 @@ import java.io.Serializable
 
 
 class Event(
-    @SerializedName("idEvent") val id: String,
+    @SerializedName("idEvent") val idEvent: Int,
+    var idSpace: Int,
     var name: String,
     var description: String,
     var capacity: Int,
     var startDate: LocalDateTime,
     var endDate: LocalDateTime,
-    var status: String,
-    var idSpace: Int
+    var status: String
+
            ) : Serializable

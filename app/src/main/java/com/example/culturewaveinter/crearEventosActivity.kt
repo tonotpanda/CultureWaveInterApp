@@ -8,9 +8,13 @@ import android.os.Bundle
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
@@ -90,36 +94,49 @@ class crearEventosActivity : AppCompatActivity() {
             val capacidadTexto = editTextCapacity.text.toString().trim()
             val capacidad = capacidadTexto.toIntOrNull()
 
-            if (selectedSpace == null || nombre.isEmpty() ||
-                descripcion.isEmpty() || fechaInicio == null ||
-                fechaFin == null || capacidad == null || capacidad <= 0
-            ) {
-                Toast.makeText(
-                    this,
-                    "Por favor completa todos los campos correctamente",
-                    Toast.LENGTH_SHORT
-                              ).show()
+            if (capacidad == null || capacidad <= 0) {
+                Toast.makeText(this, "La capacidad debe ser un número válido y mayor que 0", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
+            if (selectedSpace == null || nombre.isEmpty() || descripcion.isEmpty() || fechaInicio == null || fechaFin == null || capacidad == null || capacidad <= 0) {
+                Toast.makeText(this, "Por favor completa todos los campos correctamente", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Aquí no enviamos el idEvent porque la base de datos lo generará automáticamente
             val nuevoEvento = Event(
-                id = UUID.randomUUID().toString(),
+                idEvent = 0,  // Esto se elimina si la base de datos asigna el ID automáticamente
                 name = nombre,
                 description = descripcion,
                 capacity = capacidad,
                 startDate = fechaInicio!!,
                 endDate = fechaFin!!,
-                status = "To Do",
+                status = "Programado",
                 idSpace = selectedSpace!!.id
                                    )
 
-            // Preparamos el Intent de resultado
-            val resultIntent = Intent().apply {
-                putExtra("nuevoEvento", nuevoEvento)
+            // Log para depurar
+            println("Event data: $nuevoEvento")
+
+            // Hacer POST a la API para crear el evento
+            CoroutineScope(Dispatchers.Main).launch {
+                val createSuccessful = ApiRepository.createEvent(nuevoEvento)  // Llamada para crear el evento
+                if (createSuccessful) {
+                    // Si la creación fue exitosa, devolvemos el evento
+                    val resultIntent = Intent().apply {
+                        putExtra("nuevoEvento", nuevoEvento)
+                    }
+                    setResult(RESULT_OK, resultIntent)
+                    finish()
+                } else {
+                    // Si hubo un error, mostramos un mensaje
+                    Toast.makeText(this@crearEventosActivity, "Error al guardar el evento. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
+                }
             }
-            setResult(RESULT_OK, resultIntent)
-            finish()
         }
+
+
 
         // Back: cancelamos y cerramos
         findViewById<ImageView>(R.id.back).setOnClickListener {
