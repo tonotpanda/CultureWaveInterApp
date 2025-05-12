@@ -17,18 +17,15 @@ object ApiClient {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun provideGson(): Gson {
-        // Definir el deserializador de LocalDateTime
         val localDateTimeDeserializer = JsonDeserializer<LocalDateTime> { json, _, _ ->
             LocalDateTime.parse(json.asString, DateTimeFormatter.ISO_LOCAL_DATE_TIME)
         }
 
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // Si estamos en una versión >= Android 26 (Oreo), usamos LocalDateTime
             GsonBuilder()
                 .registerTypeAdapter(LocalDateTime::class.java, localDateTimeDeserializer)
                 .create()
         } else {
-            // Si estamos en una versión anterior, devolvemos un Gson simple sin soporte de LocalDateTime
             GsonBuilder().create()
         }
     }

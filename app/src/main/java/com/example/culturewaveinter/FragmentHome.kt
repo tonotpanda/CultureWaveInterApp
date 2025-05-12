@@ -51,34 +51,14 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
         }
     }
 
-    private fun loadJsonFromAsset(context: Context, filename: String): String {
-        val inputStream = context.assets.open(filename)
-        val reader = InputStreamReader(inputStream)
-        return reader.readText()
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun parseEventsJson(context: Context): List<Event> {
-        val json = loadJsonFromAsset(context, "Events.json")
-        val formatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME
-        val gsonWithDate = Gson().newBuilder().registerTypeAdapter(
-            LocalDateTime::class.java, JsonDeserializer<LocalDateTime> { json, _, _ ->
-                LocalDateTime.parse(json.asString, formatter)
-            }).create()
-        val type: Type = object : TypeToken<List<Event>>() {}.type
-        return gsonWithDate.fromJson(json, type)
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        // Registramos el lanzador para StartActivityForResult
         newEventLauncher = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()
-                                                    ) { result ->
+            ) { result ->
             if (result.resultCode == AppCompatActivity.RESULT_OK) {
                 val nuevoEvento = result.data?.getSerializableExtra("nuevoEvento") as? Event
                 if (nuevoEvento != null) {
-                    // Añadimos y notificamos al adapter
                     eventsList.add(nuevoEvento)
                     eventAdapter.notifyItemInserted(eventsList.size - 1)
                 }
@@ -102,11 +82,11 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
 
         lifecycleScope.launch {
             val spacesFromApi = ApiRepository.getSpaces()
-            if (spacesFromApi != null) {
-                spaceList = spacesFromApi
+            val eventsFromApi = ApiRepository.getEvents()
 
-                val parsedEvents = parseEventsJson(requireContext())
-                eventsList.addAll(parsedEvents)
+            if (spacesFromApi != null && eventsFromApi != null) {
+                spaceList = spacesFromApi
+                eventsList.addAll(eventsFromApi)
 
                 eventAdapter = EventAdapter(eventsList, spaceList)
                 recyclerView.adapter = eventAdapter
@@ -118,7 +98,6 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
                     newEventLauncher.launch(intent)
                 }
             } else {
-                // Manejo de error si no se pudo cargar desde la API
                 Toast.makeText(
                     requireContext(),
                     "Error al cargar espacios desde API",
