@@ -7,6 +7,7 @@ import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 object ApiRepository {
 
@@ -44,6 +45,26 @@ object ApiRepository {
             response.isSuccessful
         }
     }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun createEvent(event: Event): Boolean {
+        return withContext(Dispatchers.IO) {
+            val response: Response<Void> = apiService.createEvent(event)
+            if (response.isSuccessful) {
+                true
+            } else {
+                // Agrega detalles del error para depuración
+                println("Error creating event: ${response.code()} - ${response.message()}")
+                println("Response body: ${response.errorBody()?.string()}")
+                false
+            }
+        }
+    }
+
+
+
+
+
 
 
 
