@@ -1,11 +1,12 @@
 package com.example.culturewaveinter.Entities
 
+import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
 import java.io.Serializable
 
 
 class Event(
-    val id: String,
+    @SerializedName("idEvent") val id: String,
     var name: String,
     var description: String,
     var capacity: Int,
