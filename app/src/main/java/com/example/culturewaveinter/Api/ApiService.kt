@@ -27,9 +27,7 @@ interface ApiService {
         @Body user: User
                           ): Response<Void>
 
-    @POST("eventTables")
-    suspend fun createEvent(@Body event: Event): Response<Void>  // Respuesta vacía porque solo estamos creando el evento
-
-
+    @POST("users")
+    suspend fun createUser(@Body user: User): Response<User>
 
 }

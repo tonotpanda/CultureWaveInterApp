@@ -1,17 +1,23 @@
 package com.example.culturewaveinter
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Entities.User
+import kotlinx.coroutines.launch
 import java.security.MessageDigest
 
 class RegisUserActivity : AppCompatActivity() {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.regist_user)
@@ -51,18 +57,28 @@ class RegisUserActivity : AppCompatActivity() {
             val encryptedPassword = encryptSHA256(password)
 
             val newUser = User(
-                id = 1,
+                id = 0,
                 name = username,
                 email = email,
                 password = encryptedPassword,
                 rol = 3
             )
 
-            Toast.makeText(this, "Usuario creado", Toast.LENGTH_SHORT).show()
-            val resultIntent = Intent()
-            resultIntent.putExtra("newUser", newUser)
-            setResult(RESULT_OK, resultIntent)
-            finish()
+            lifecycleScope.launch {
+                val createdUser = ApiRepository.createUser(newUser)
+                if (createdUser != null) {
+                    Toast.makeText(this@RegisUserActivity, "Usuario creado", Toast.LENGTH_SHORT).show()
+                    val resultIntent = Intent()
+                    resultIntent.putExtra("newUser", newUser)
+                    setResult(RESULT_OK, resultIntent)
+                    finish()
+                }
+                else {
+                    Toast.makeText(this@RegisUserActivity, "Erroar al crear al usuario", Toast.LENGTH_SHORT).show()
+                }
+            }
+
+
         }
     }
 
