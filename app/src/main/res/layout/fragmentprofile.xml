@@ -9,7 +9,7 @@
         android:layout_width="192dp"
         android:layout_height="192dp"
         android:layout_gravity="center"
-        android:paddingTop="40dp"
+        android:paddingTop="30dp"
         android:src="@drawable/logo" />
 
     <TextView
@@ -78,6 +78,18 @@
         android:fontFamily="@font/nunito"
         android:text="Cambiar contraseña"
         android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editTextBoxChangePassword"
+        android:layout_width="290dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/borde_edittext"
+        android:fontFamily="@font/nunito"
+        android:password="true"
+        android:padding="10dp"
+        android:textSize="18dp" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnChangePassword"

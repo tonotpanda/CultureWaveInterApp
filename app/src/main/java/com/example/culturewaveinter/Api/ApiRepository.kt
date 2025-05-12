@@ -37,5 +37,14 @@ object ApiRepository {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun updateUser(user: User): Boolean {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.updateUser(user.id, user)
+            response.isSuccessful
+        }
+    }
+
+
 
 }
