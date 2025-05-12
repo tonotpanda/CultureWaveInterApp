@@ -45,6 +45,14 @@ object ApiRepository {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun createUser(user: User): User? {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.createUser(user)
+            if (response.isSuccessful) response.body() else null
+        }
+    }
+
 
 
 }

@@ -6,6 +6,7 @@ import com.example.culturewaveinter.Entities.User
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
+import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
 
@@ -25,5 +26,8 @@ interface ApiService {
         @Path("id") id: Int,
         @Body user: User
                           ): Response<Void>
+
+    @POST("users")
+    suspend fun createUser(@Body user: User): Response<User>
 
 }

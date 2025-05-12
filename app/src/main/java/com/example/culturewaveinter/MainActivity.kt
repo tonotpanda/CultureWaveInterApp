@@ -1,8 +1,10 @@
 package com.example.culturewaveinter
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.culturewaveinter.Api.ApiRepository.getUsers
@@ -17,6 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private var users = mutableListOf<User>()
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -49,7 +52,7 @@ class MainActivity : AppCompatActivity() {
             }
 
             val encryptedPassword = encryptSHA256(password)
-            val user = verifyUser(email, password, users)
+            val user = verifyUser(email, encryptedPassword, users)
 
             if (user != null) {
                 Intent(this, FragmentActivity::class.java).also {
