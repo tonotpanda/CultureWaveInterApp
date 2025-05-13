@@ -53,8 +53,12 @@ object ApiRepository {
         }
     }
 
-
-
-
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun createEvent(event: Event): Event? {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.createEvent(event)
+            if (response.isSuccessful) response.body() else null
+        }
+    }
 
 }

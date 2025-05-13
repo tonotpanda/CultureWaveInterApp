@@ -5,15 +5,17 @@ import android.app.TimePickerDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.culturewaveinter.Adapters.LocalDateTimeAdapter
 import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
+import com.google.gson.GsonBuilder
 import kotlinx.coroutines.launch
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -43,7 +45,6 @@ class crearEventosActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.crear_eventos_layout)
 
-        // Referencias UI
         val spinnerSpaces = findViewById<Spinner>(R.id.spinnerSpaces)
         val editTextNombre = findViewById<EditText>(R.id.editTextNombreEvento)
         val editTextDescripcion = findViewById<EditText>(R.id.editTextDescripcionEvento)
@@ -55,26 +56,22 @@ class crearEventosActivity : AppCompatActivity() {
         btnSeleccionarFechaFin = findViewById(R.id.btnSeleccionarFechaHoraFin)
         btnGuardarEvento = findViewById(R.id.btnGuardarEvento)
 
-        // Recuperamos datos pasados
         currentUser = intent.getSerializableExtra("user") as? User
         spaces = intent.getSerializableExtra("spaceList") as? ArrayList<Space>
 
-        // Configuramos spinner de espacios
         spaces?.let {
             val adapter = ArrayAdapter(
-                this,
-                android.R.layout.simple_spinner_item,
-                it.map { space -> space.name }
+                this, android.R.layout.simple_spinner_item, it.map { space -> space.name }
                                       )
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             spinnerSpaces.adapter = adapter
             spinnerSpaces.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onItemSelected(
-                    parent: AdapterView<*>?, view: android.view.View?,
-                    position: Int, id: Long
+                    parent: AdapterView<*>?, view: android.view.View?, position: Int, id: Long
                                            ) {
                     selectedSpace = it[position]
                 }
+
                 override fun onNothingSelected(parent: AdapterView<*>?) {
                     selectedSpace = null
                 }
@@ -83,11 +80,9 @@ class crearEventosActivity : AppCompatActivity() {
 
         btnSeleccionarFechaFin.isEnabled = false
 
-        // Pickers de fecha/hora
         btnSeleccionarFechaInicio.setOnClickListener { mostrarDateTimePicker(true) }
         btnSeleccionarFechaFin.setOnClickListener { mostrarDateTimePicker(false) }
 
-        // Guardar evento: devolvemos como resultado
         btnGuardarEvento.setOnClickListener {
             val nombre = editTextNombre.text.toString().trim()
             val descripcion = editTextDescripcion.text.toString().trim()
@@ -99,14 +94,13 @@ class crearEventosActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            if (selectedSpace == null || nombre.isEmpty() || descripcion.isEmpty() || fechaInicio == null || fechaFin == null || capacidad == null || capacidad <= 0) {
+            if (selectedSpace == null || nombre.isEmpty() || descripcion.isEmpty() || fechaInicio == null || fechaFin == null) {
                 Toast.makeText(this, "Por favor completa todos los campos correctamente", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Aquí no enviamos el idEvent porque la base de datos lo generará automáticamente
             val nuevoEvento = Event(
-                idEvent = 0,  // Esto se elimina si la base de datos asigna el ID automáticamente
+                idEvent = 0,
                 name = nombre,
                 description = descripcion,
                 capacity = capacidad,
@@ -116,32 +110,33 @@ class crearEventosActivity : AppCompatActivity() {
                 idSpace = selectedSpace!!.id
                                    )
 
-            // Log para depurar
-            println("Event data: $nuevoEvento")
+            // Log para verificar el JSON enviado
+            val gson = GsonBuilder()
+                .registerTypeAdapter(LocalDateTime::class.java, LocalDateTimeAdapter())
+                .create()
 
-            // Hacer POST a la API para crear el evento
-            CoroutineScope(Dispatchers.Main).launch {
-                val createSuccessful = ApiRepository.createEvent(nuevoEvento)  // Llamada para crear el evento
-                if (createSuccessful) {
-                    // Si la creación fue exitosa, devolvemos el evento
-                    val resultIntent = Intent().apply {
-                        putExtra("nuevoEvento", nuevoEvento)
+            Log.d("crearEvento", "JSON enviado: ${gson.toJson(nuevoEvento)}")
+
+            lifecycleScope.launch {
+                try {
+                    val createdEvent = ApiRepository.createEvent(nuevoEvento)
+
+                    if (createdEvent != null) {
+                        Log.d("crearEvento", "Evento creado correctamente: ${createdEvent.name}")
+                        val resultIntent = Intent().apply {
+                            putExtra("nuevoEvento", createdEvent)
+                        }
+                        setResult(RESULT_OK, resultIntent)
+                        finish()
+                    } else {
+                        Log.e("crearEvento", "Error al crear el evento: respuesta nula")
+                        Toast.makeText(this@crearEventosActivity, "Error al guardar el evento. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
                     }
-                    setResult(RESULT_OK, resultIntent)
-                    finish()
-                } else {
-                    // Si hubo un error, mostramos un mensaje
-                    Toast.makeText(this@crearEventosActivity, "Error al guardar el evento. Intenta nuevamente.", Toast.LENGTH_SHORT).show()
+                } catch (e: Exception) {
+                    Log.e("crearEvento", "Error en la creación del evento", e)
+                    Toast.makeText(this@crearEventosActivity, "Excepción: ${e.message}", Toast.LENGTH_LONG).show()
                 }
             }
-        }
-
-
-
-        // Back: cancelamos y cerramos
-        findViewById<ImageView>(R.id.back).setOnClickListener {
-            setResult(RESULT_CANCELED)
-            finish()
         }
     }
 
@@ -151,31 +146,24 @@ class crearEventosActivity : AppCompatActivity() {
 
         DatePickerDialog(this, { _, year, month, dayOfMonth ->
             TimePickerDialog(this, { _, hourOfDay, minute ->
-                val selectedDateTime = LocalDateTime.of(
-                    year, month + 1, dayOfMonth, hourOfDay, minute
-                                                       )
+                val selectedDateTime = LocalDateTime.of(year, month + 1, dayOfMonth, hourOfDay, minute)
 
                 if (esInicio) {
                     fechaInicio = selectedDateTime
-                    tvFechaInicio.text =
-                        "Fecha inicio evento: ${selectedDateTime.format(formatter)}"
+                    tvFechaInicio.text = "Fecha inicio evento: ${selectedDateTime.format(formatter)}"
                     btnSeleccionarFechaFin.isEnabled = true
                     fechaFin = null
                     tvFechaFin.text = "Fecha fin evento"
                 } else {
                     if (fechaInicio == null || !selectedDateTime.isAfter(fechaInicio)) {
-                        Toast.makeText(
-                            this,
-                            "La fecha de fin debe ser posterior a la de inicio",
-                            Toast.LENGTH_SHORT
-                                      ).show()
+                        Toast.makeText(this, "La fecha de fin debe ser posterior a la de inicio", Toast.LENGTH_SHORT).show()
                         return@TimePickerDialog
                     }
                     fechaFin = selectedDateTime
-                    tvFechaFin.text =
-                        "Fecha fin evento: ${selectedDateTime.format(formatter)}"
+                    tvFechaFin.text = "Fecha fin evento: ${selectedDateTime.format(formatter)}"
                 }
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show()
         }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show()
     }
 }
+

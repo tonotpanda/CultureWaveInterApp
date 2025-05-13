@@ -30,4 +30,7 @@ interface ApiService {
     @POST("users")
     suspend fun createUser(@Body user: User): Response<User>
 
+    @POST("eventTables")
+    suspend fun createEvent(@Body event: Event): Response<Event>
+
 }
