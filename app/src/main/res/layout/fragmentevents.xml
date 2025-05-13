@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-
+        <!-- Botón de regreso -->
         <ImageView
             android:id="@+id/back"
             android:layout_width="wrap_content"
@@ -19,6 +18,7 @@
             android:layout_gravity="start"
             android:padding="10dp"/>
 
+        <!-- Logo de la aplicación -->
         <ImageView
             android:id="@+id/logo"
             android:layout_width="192dp"
@@ -26,6 +26,7 @@
             android:layout_gravity="center_horizontal"
             android:src="@drawable/logo" />
 
+        <!-- Contenedor principal del evento -->
         <LinearLayout
             android:layout_width="307dp"
             android:layout_height="wrap_content"
@@ -44,6 +45,7 @@
             android:orientation="vertical"
             android:padding="16dp">
 
+            <!-- Título del evento -->
             <TextView
                 android:id="@+id/eventTitle"
                 android:layout_width="wrap_content"
@@ -54,6 +56,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <!-- Descripción del evento -->
             <TextView
                 android:id="@+id/Description"
                 android:layout_width="wrap_content"
@@ -64,6 +67,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- Detalles de la descripción del evento -->
             <TextView
                 android:id="@+id/eventDescription"
                 android:layout_width="wrap_content"
@@ -73,6 +77,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="14sp"/>
 
+            <!-- Texto para la fecha del evento -->
             <TextView
                 android:id="@+id/date"
                 android:layout_width="wrap_content"
@@ -82,6 +87,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- Fecha del evento -->
             <TextView
                 android:id="@+id/eventDate"
                 android:layout_width="wrap_content"
@@ -90,6 +96,7 @@
                 android:text="@string/datenum_events"
                 android:textColor="@android:color/white" />
 
+            <!-- Texto para la hora del evento -->
             <TextView
                 android:id="@+id/time"
                 android:layout_width="wrap_content"
@@ -99,6 +106,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
+            <!-- Hora del evento -->
             <TextView
                 android:id="@+id/eventTime"
                 android:layout_width="wrap_content"
@@ -107,6 +115,7 @@
                 android:text="@string/eventtime_events"
                 android:textColor="@android:color/white" />
 
+            <!-- Texto para el lugar del evento -->
             <TextView
                 android:id="@+id/space"
                 android:layout_width="wrap_content"
@@ -116,6 +125,7 @@
                 android:textStyle="bold"
                 android:textSize="18sp"/>
 
+            <!-- Nombre del espacio donde se realiza el evento -->
             <TextView
                 android:id="@+id/spaceEvent"
                 android:layout_width="wrap_content"
@@ -124,6 +134,17 @@
                 android:text="@string/placeevent_events"
                 android:textColor="@android:color/white" />
 
+            <!-- Indicador si es el mes actual -->
+            <TextView
+                android:id="@+id/eventMonthIndicator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="italic"/>
+
+            <!-- Botón de reserva -->
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnReservar"
                 android:layout_width="120dp"
@@ -135,8 +156,4 @@
                 android:textSize="12sp" />
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 </ScrollView>

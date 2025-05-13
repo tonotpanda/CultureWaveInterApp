@@ -40,12 +40,12 @@ android {
 }
 
 dependencies {
-    implementation("com.google.code.gson:gson:2.8.8")
+    implementation(libs.gson)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation(libs.androidx.activity)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.constraintlayout)
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson)
@@ -54,6 +54,6 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation("androidx.fragment:fragment-ktx:1.4.0") // Para usar FragmentManager
+    implementation (libs.androidx.recyclerview)
+    implementation(libs.androidx.fragment.ktx) // Para usar FragmentManager
 }

@@ -3,41 +3,37 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/white"
     android:padding="16dp">
 
-    <ImageView
-        android:layout_width="192dp"
-        android:layout_height="192dp"
-        android:layout_gravity="center"
-        android:paddingTop="40dp"
-        android:src="@drawable/logo" />
-
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/monthYearTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/nunitobold"
-        android:text="@string/app_name"
+        android:text="Mes y Año"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="16dp" />
 
-    <!-- CalendarView para mostrar el calendario -->
-    <androidx.cardview.widget.CardView
-        android:id="@+id/calendarCardView"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/prevMonthButton"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp">
+        android:text="Mes Anterior"
+        android:layout_marginEnd="8dp" />
 
-        <CalendarView
-            android:id="@+id/calendarView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:theme="@style/CustomCalendarStyle"
-            android:showWeekNumber="false"
-            android:dateTextAppearance="@style/CalendarViewDateCustomText"
-            android:weekDayTextAppearance="@style/CalendarViewWeekCustomText"/>
-    </androidx.cardview.widget.CardView>
+    <Button
+        android:id="@+id/nextMonthButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Mes Siguiente"
+        android:layout_marginStart="8dp" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calendarRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        android:layout_weight="1" />
 
 </LinearLayout>

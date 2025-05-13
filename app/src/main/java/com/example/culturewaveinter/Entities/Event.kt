@@ -1,18 +1,18 @@
 package com.example.culturewaveinter.Entities
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.google.gson.annotations.SerializedName
 import java.time.LocalDateTime
-import java.io.Serializable
 
-
-class Event(
+@RequiresApi(Build.VERSION_CODES.O)
+data class Event(
     @SerializedName("idEvent") val idEvent: Int,
     var idSpace: Int,
     var name: String,
     var description: String,
     var capacity: Int,
-    var startDate: LocalDateTime,
-    var endDate: LocalDateTime,
+    @SerializedName("startDate") var startDate: LocalDateTime,
+    @SerializedName("endDate") var endDate: LocalDateTime,
     var status: String
-
-           ) : Serializable
+                ) : java.io.Serializable
