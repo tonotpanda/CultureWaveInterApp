@@ -50,9 +50,17 @@ class EventAdapter(private val eventList: List<Event>, private val spaceList: Li
 
             fragment.arguments = bundle
 
-            val activity = holder.itemView.context as? FragmentActivity
-            activity?.loadFragment(fragment)
+            // Obtener el fragmento padre a través del contexto de la vista
+            val fragmentManager = (holder.itemView.context as? FragmentActivity)?.supportFragmentManager
+
+            // Realizar la transacción si el fragmentManager está disponible
+            fragmentManager?.beginTransaction()
+                ?.replace(R.id.fragmentContainer, fragment)
+                ?.addToBackStack(null) // Agregar al back stack para que podamos volver
+                ?.commit()
         }
+
+
     }
 
     override fun getItemCount(): Int = eventList.size

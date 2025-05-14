@@ -117,6 +117,7 @@ class FragmentCalendar : Fragment(R.layout.fragmentcalendar) {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun openEventsFragment(selectedDay: CalendarDay) {
         // Obtener espacios desde la API (debes implementar esta función)
+        // Abre el evento con el evento seleccionado del calendario
         lifecycleScope.launch {
             val spaces = ApiRepository.getSpaces() ?: emptyList()
 

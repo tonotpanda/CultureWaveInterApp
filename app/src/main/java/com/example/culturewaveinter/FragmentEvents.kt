@@ -33,11 +33,9 @@ class FragmentEvents : Fragment(R.layout.fragmentevents) {
         view.findViewById<TextView>(R.id.eventTime).text =
             "${event.startDate.format(timeFormatter)} - ${event.endDate.format(timeFormatter)}"
 
-        // Buscar el espacio correspondiente
         val space = spaces.find { it.id == event.idSpace }
         view.findViewById<TextView>(R.id.spaceEvent).text = space?.name ?: "Espacio desconocido"
 
-        // Indicador de mes actual
         val currentMonth = LocalDate.now().monthValue
         val eventMonth = event.startDate.monthValue
         val monthIndicator = if (currentMonth == eventMonth) "Evento de este mes" else "Evento de otro mes"

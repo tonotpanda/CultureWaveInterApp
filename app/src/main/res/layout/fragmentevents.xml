@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:src="@drawable/arrow"
             android:layout_gravity="start"
+            android:layout_marginTop="10dp"
             android:padding="10dp"/>
 
         <!-- Logo de la aplicación -->
