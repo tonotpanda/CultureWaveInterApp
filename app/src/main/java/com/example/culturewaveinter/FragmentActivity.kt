@@ -22,8 +22,6 @@ class FragmentActivity : AppCompatActivity() {
             return
         }
 
-        Toast.makeText(this, "Hola, ${currentUser.name}", Toast.LENGTH_SHORT).show()
-
         val bottomNavigationView = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         bottomNavigationView.setOnNavigationItemSelectedListener { item ->
@@ -37,7 +35,7 @@ class FragmentActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_chat -> {
-                    loadFragment(FragmentChat())
+                    loadFragment(FragmentChat.newInstance(currentUser.id))
                     true
                 }
                 R.id.navigation_profile -> {
@@ -54,15 +52,12 @@ class FragmentActivity : AppCompatActivity() {
             when (fragmentToLoad) {
                 "home" -> {
                     val fragmentHome = FragmentHome.newInstance(currentUser)
-
-                    // Comprobamos si se pasó un nuevo evento
                     val nuevoEvento = intent.getSerializableExtra("nuevoEvento") as? Event
-                    if (nuevoEvento != null) {
+                    nuevoEvento?.let {
                         val bundle = Bundle()
-                        bundle.putSerializable("nuevoEvento", nuevoEvento)
-                        fragmentHome.arguments?.putAll(bundle)
+                        bundle.putSerializable("nuevoEvento", it)
+                        fragmentHome.arguments = bundle
                     }
-
                     loadFragment(fragmentHome)
                     bottomNavigationView.selectedItemId = R.id.navigation_home
                 }
@@ -71,7 +66,7 @@ class FragmentActivity : AppCompatActivity() {
                     bottomNavigationView.selectedItemId = R.id.navigation_events
                 }
                 "chat" -> {
-                    loadFragment(FragmentChat())
+                    loadFragment(FragmentChat.newInstance(currentUser.id))
                     bottomNavigationView.selectedItemId = R.id.navigation_chat
                 }
                 "profile" -> {

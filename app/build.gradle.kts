@@ -55,5 +55,7 @@ dependencies {
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation (libs.androidx.recyclerview)
-    implementation(libs.androidx.fragment.ktx) // Para usar FragmentManager
+    implementation(libs.androidx.fragment.ktx)
+    implementation (libs.gson.v2101)
+
 }

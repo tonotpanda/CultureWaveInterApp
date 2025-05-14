@@ -1,10 +1,8 @@
 package com.example.culturewaveinter.Entities
 
-import java.sql.Timestamp
-
-class Message (
+data class Message(
     val id: Int,
-    val text: String,
-    val timestamp: Timestamp,
-    val idUser: Int
-)
+    val from: Int,
+    val content: String,
+    val timestamp: String
+                  )

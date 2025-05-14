@@ -1,6 +1,5 @@
 package com.example.culturewaveinter
 
-import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -20,14 +19,7 @@ import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
-import com.google.gson.Gson
-import com.google.gson.JsonDeserializer
-import com.google.gson.reflect.TypeToken
 import kotlinx.coroutines.launch
-import java.io.InputStreamReader
-import java.lang.reflect.Type
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 class FragmentHome : Fragment(R.layout.fragmenthome) {
 
