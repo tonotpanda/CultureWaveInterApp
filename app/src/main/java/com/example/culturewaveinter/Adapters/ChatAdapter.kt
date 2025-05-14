@@ -35,7 +35,7 @@ class ChatAdapter(
         holder.messageText.text = message.content
         holder.userName.text = message.senderName
 
-        // Alinear burbuja y aplicar estilo
+        // Establecer la alineación y el fondo dependiendo de quién envió el mensaje
         val params = holder.messageContainer.layoutParams as FrameLayout.LayoutParams
         if (isSentByMe) {
             params.gravity = Gravity.END
@@ -53,6 +53,7 @@ class ChatAdapter(
 
         holder.messageContainer.layoutParams = params
     }
+
 
     override fun getItemCount(): Int = messages.size
 

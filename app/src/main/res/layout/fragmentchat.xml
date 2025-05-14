@@ -54,6 +54,9 @@
             android:backgroundTint="#AC5D31"
             android:layout_height="48dp"
             android:layout_marginStart="8dp"
+            android:maxWidth="250dp"
+            android:ellipsize="end"
+            android:inputType="textMultiLine"
             android:layout_marginEnd="8dp"
             android:layout_weight="1"
             android:background="@drawable/borde_edittext"
@@ -61,13 +64,6 @@
             android:hint="@string/hint_chat"
             android:padding="10dp"
             android:textSize="18sp" />
-
-        <ImageButton
-            android:id="@+id/btnAttachImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@drawable/plus" />
 
         <ImageButton
             android:id="@+id/btnSendMessage"
