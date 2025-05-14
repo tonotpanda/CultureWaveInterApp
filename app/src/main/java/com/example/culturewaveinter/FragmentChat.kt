@@ -92,7 +92,7 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
                             id = (jsonObject["message_id"] as Double).toInt(),
                             from = (jsonObject["from"] as Double).toInt(),
                             content = jsonObject["content"] as String,
-                            timestamp = jsonObject["timestamp"] as String
+                            timestamp = jsonObject["timestamp"]?.toString() ?: ""
                                              )
 
                         withContext(Dispatchers.Main) {
