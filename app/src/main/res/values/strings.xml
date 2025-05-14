@@ -42,6 +42,7 @@
     <string name="book_events">Reservar</string>
 
     PROFILE
+    <string name="profile">Imagen de perfil</string>
     <string name="basicinformation_profile">Información básica</string>
     <string name="username_profile">Nombre usuario</string>
     <string name="email_profile">Correo electronico</string>

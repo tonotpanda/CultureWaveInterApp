@@ -42,6 +42,7 @@
     <string name="book_events">Book</string>
 
     <!-- PROFILE -->
+    <string name="profile">Profile picture</string>
     <string name="basicinformation_profile">Basic Information</string>
     <string name="username_profile">Username</string>
     <string name="email_profile">Email</string>

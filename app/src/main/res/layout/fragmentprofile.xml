@@ -6,19 +6,23 @@
     android:orientation="vertical">
 
     <ImageView
-        android:layout_width="192dp"
-        android:layout_height="192dp"
+        android:layout_marginTop="20dp"
+        android:id="@+id/profilePicture"
+        android:padding="8dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_gravity="center"
-        android:paddingTop="30dp"
-        android:src="@drawable/logo" />
+        android:background="@drawable/borde_perfil"
+        android:src="@drawable/profile_picture" />
 
     <TextView
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/nunitobold"
-        android:text="@string/app_name"
-        android:textSize="20sp"
+        android:text="@string/profile"
+        android:textSize="22sp"
         android:textStyle="bold" />
 
     <TextView
@@ -26,6 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/nunitobold"
+        android:layout_marginTop="25dp"
         android:paddingTop="10dp"
         android:text="@string/basicinformation_profile"
         android:textSize="20sp" />
@@ -34,7 +39,7 @@
         android:layout_width="130dp"
         android:layout_height="20dp"
         android:layout_gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/nunito"
         android:text="@string/username_profile"
         android:textSize="18sp" />
@@ -125,7 +130,7 @@
         <ImageView
             android:id="@+id/esFlagImg"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
@@ -134,7 +139,7 @@
         <ImageView
             android:id="@+id/catFlagImg"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
@@ -143,7 +148,7 @@
         <ImageView
             android:id="@+id/enFlagImg"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:layout_weight="1"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
