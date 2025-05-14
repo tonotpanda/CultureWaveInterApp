@@ -10,12 +10,13 @@ import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
+import com.example.culturewaveinter.Entities.User
 import com.example.culturewaveinter.FragmentActivity
 import com.example.culturewaveinter.FragmentEvents
 import com.example.culturewaveinter.R
 import java.time.format.DateTimeFormatter
 
-class EventAdapter(private val eventList: List<Event>, private val spaceList: List<Space>) :
+class EventAdapter(private val eventList: List<Event>, private val spaceList: List<Space>, private val currentUser: User) :
     RecyclerView.Adapter<EventAdapter.EventViewHolder>(){
 
     class EventViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -47,18 +48,19 @@ class EventAdapter(private val eventList: List<Event>, private val spaceList: Li
             val bundle = Bundle()
             bundle.putSerializable("event", event)
             bundle.putSerializable("spaces", ArrayList(spaceList))
+            bundle.putSerializable("user", currentUser)
 
             fragment.arguments = bundle
 
-            // Obtener el fragmento padre a través del contexto de la vista
             val fragmentManager = (holder.itemView.context as? FragmentActivity)?.supportFragmentManager
 
-            // Realizar la transacción si el fragmentManager está disponible
             fragmentManager?.beginTransaction()
                 ?.replace(R.id.fragmentContainer, fragment)
-                ?.addToBackStack(null) // Agregar al back stack para que podamos volver
+                ?.addToBackStack(null)
                 ?.commit()
         }
+
+
 
 
     }

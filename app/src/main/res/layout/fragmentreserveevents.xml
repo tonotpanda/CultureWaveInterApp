@@ -1,0 +1,133 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/arrow"
+            android:layout_gravity="start"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="24dp"
+            android:background="@drawable/borde_redondo_evento"
+            android:backgroundTint="@color/brown"
+            android:clipChildren="false"
+            android:clipToPadding="false"
+            android:elevation="4dp"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/eventTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="@string/eventname_event"
+                android:textColor="@android:color/white"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+
+            <TextView
+                android:id="@+id/space"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/place_events"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/spaceEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/placeevent_events"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/eventDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:text="@string/datenum_events"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/eventTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@string/eventtime_events"
+                android:textColor="@android:color/white" />
+
+            <TextView
+                android:id="@+id/asientosLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Asientos"
+                android:textColor="@android:color/white"
+                android:textStyle="bold"
+                android:fontFamily="@font/nunito"
+                android:textSize="20sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <Spinner
+                    android:id="@+id/spinnerAsiento1"
+                    android:layout_width="140dp"
+                    android:layout_height="48dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/borde_edittext"
+                    android:fontFamily="@font/nunito"
+                    android:padding="10dp"
+                    android:textSize="18sp" />
+
+                <Spinner
+                    android:id="@+id/spinnerAsiento2"
+                    android:layout_width="140dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/borde_edittext"
+                    android:fontFamily="@font/nunito"
+                    android:padding="10dp"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnReservar"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/boton_personalizado"
+                android:fontFamily="@font/nunitobold"
+                android:text="@string/book_events"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

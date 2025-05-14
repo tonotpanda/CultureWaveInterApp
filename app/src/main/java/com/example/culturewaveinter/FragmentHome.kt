@@ -80,7 +80,7 @@ class FragmentHome : Fragment(R.layout.fragmenthome) {
                 spaceList = spacesFromApi
                 eventsList.addAll(eventsFromApi)
 
-                eventAdapter = EventAdapter(eventsList, spaceList)
+                eventAdapter = EventAdapter(eventsList, spaceList, currentUser!!)
                 recyclerView.adapter = eventAdapter
 
                 imageViewNewEvent.setOnClickListener {
