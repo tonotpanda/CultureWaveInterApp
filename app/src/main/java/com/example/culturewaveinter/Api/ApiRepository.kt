@@ -61,4 +61,15 @@ object ApiRepository {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun getAllUsers(): List<User>? {
+        return withContext(Dispatchers.IO) {
+            val response = ApiClient.apiService.getUsers()
+            if (response.isSuccessful) {
+                return@withContext response.body()
+            } else {
+                return@withContext null
+            }
+        }
+    }
 }

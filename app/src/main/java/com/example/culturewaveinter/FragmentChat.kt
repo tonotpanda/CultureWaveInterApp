@@ -1,16 +1,20 @@
 package com.example.culturewaveinter
 
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturewaveinter.Adapters.ChatAdapter
+import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Entities.Message
 import com.example.culturewaveinter.Entities.MessageData
+import com.example.culturewaveinter.Entities.User
 import com.google.gson.Gson
 import kotlinx.coroutines.*
 import java.io.*
@@ -29,6 +33,7 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
     private var reader: BufferedReader? = null
     private val gson = Gson()
     private val messages = mutableListOf<Message>()
+    private val userCache = mutableMapOf<Int, String>()
 
     private val serverIP = "10.0.3.8" // Cambia esto si el servidor está en otro lugar
     private val serverPort = 5050
@@ -49,6 +54,7 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
         userId = arguments?.getInt(ARG_USER_ID) ?: -1
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -68,7 +74,27 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
             }
         }
 
+        // Cargar usuarios antes de conectar al servidor
+        loadUsers()
         connectToServer()
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadUsers() {
+        CoroutineScope(Dispatchers.IO).launch {
+            try {
+                // Obtener todos los usuarios
+                val users = ApiRepository.getAllUsers()
+                users?.forEach {
+                    // Poner en un mapa con ID como clave y nombre como valor
+                    userCache[it.id] = it.name
+                }
+            } catch (e: Exception) {
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(requireContext(), "Error al cargar usuarios: ${e.message}", Toast.LENGTH_LONG).show()
+                }
+            }
+        }
     }
 
     private fun connectToServer() {
@@ -94,6 +120,10 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
                             content = jsonObject["content"] as String,
                             timestamp = jsonObject["timestamp"]?.toString() ?: ""
                                              )
+
+                        // Obtener el nombre del usuario desde el cache
+                        val userName = userCache[message.from] ?: "Usuario desconocido"
+                        message.senderName = userName
 
                         withContext(Dispatchers.Main) {
                             chatAdapter.addMessage(message)

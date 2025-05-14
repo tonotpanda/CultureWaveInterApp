@@ -1,8 +1,13 @@
 package com.example.culturewaveinter.Api
 
+import android.os.Build
+import androidx.annotation.RequiresApi
+import com.example.culturewaveinter.Api.ApiClient.apiService
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -32,5 +37,7 @@ interface ApiService {
 
     @POST("eventTables")
     suspend fun createEvent(@Body event: Event): Response<Event>
+
+
 
 }

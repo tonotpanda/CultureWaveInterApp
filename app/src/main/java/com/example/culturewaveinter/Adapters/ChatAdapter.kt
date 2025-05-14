@@ -33,6 +33,7 @@ class ChatAdapter(
         val isSentByMe = message.from == currentUserId
 
         holder.messageText.text = message.content
+        holder.userName.text = message.senderName
 
         // Alinear burbuja y aplicar estilo
         val params = holder.messageContainer.layoutParams as FrameLayout.LayoutParams
