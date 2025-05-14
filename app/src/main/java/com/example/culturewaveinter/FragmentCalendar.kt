@@ -114,16 +114,23 @@ class FragmentCalendar : Fragment(R.layout.fragmentcalendar) {
         }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun openEventsFragment(selectedDay: CalendarDay) {
-        val fragment = FragmentEvents().apply {
-            arguments = Bundle().apply {
-                putSerializable("event", selectedDay.events.first())
-            }
-        }
+        // Obtener espacios desde la API (debes implementar esta función)
+        lifecycleScope.launch {
+            val spaces = ApiRepository.getSpaces() ?: emptyList()
 
-        parentFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, fragment)
-            .addToBackStack(null)
-            .commit()
+            val fragment = FragmentEvents().apply {
+                arguments = Bundle().apply {
+                    putSerializable("event", selectedDay.events.first())
+                    putSerializable("spaces", ArrayList(spaces)) // Pasar lista de espacios
+                }
+            }
+
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainer, fragment)
+                .addToBackStack(null)
+                .commit()
+        }
     }
 }
