@@ -130,26 +130,12 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
     private fun loadReserves() {
         currentUser?.let { user ->
             lifecycleScope.launch {
-                // Obtener las reservas del usuario desde el repositorio
                 val reserves = ApiRepository.getUserReserves(user.id)
 
-                // Verifica si reservas no es null y no está vacía
                 if (reserves.isNullOrEmpty()) {
                     Toast.makeText(requireContext(), "No tienes reservas", Toast.LENGTH_SHORT).show()
                 } else {
-                    val reservesWithEvent = reserves.mapNotNull { reserve ->
-                        val eventResponse = ApiRepository.getEventById(reserve.idEvent)
-                        eventResponse?.let {
-                            ReserveWithEvent(
-                                idReserve = reserve.id,
-                                eventName = it.name,
-                                idEvent = reserve.idEvent
-                                            )
-                        }
-                    }
-
-                    // Crear el adaptador y asignarlo al RecyclerView
-                    reservesAdapter = ReservesAdapter(reservesWithEvent) { reserveId ->
+                    reservesAdapter = ReservesAdapter(reserves) { reserveId ->
                         cancelReserve(reserveId)
                     }
                     recyclerViewReserves.adapter = reservesAdapter

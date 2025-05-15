@@ -6,11 +6,12 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.culturewaveinter.Entities.Reserve
 import com.example.culturewaveinter.Entities.ReserveWithEvent
 import com.example.culturewaveinter.R
 
 class ReservesAdapter(
-    private val reserves: List<ReserveWithEvent>,
+    private val reserves: List<Reserve>,
     private val onCancelClick: (Int) -> Unit
                      ) : RecyclerView.Adapter<ReservesAdapter.ReserveViewHolder>() {
 
@@ -28,13 +29,13 @@ class ReservesAdapter(
     override fun getItemCount(): Int = reserves.size
 
     inner class ReserveViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val reserveName: TextView = view.findViewById(R.id.reserveName)
+        private val eventName: TextView = view.findViewById(R.id.eventName) // Añade estas líneas
         private val cancelButton: Button = view.findViewById(R.id.cancelButton)
 
-        fun bind(reserve: ReserveWithEvent) {
-            reserveName.text = reserve.eventName // Muestra el nombre del evento
+        fun bind(reserve: Reserve) {
+            eventName.text = reserve.event.name // Usa el evento directamente
             cancelButton.setOnClickListener {
-                onCancelClick(reserve.idReserve) // Llama a la función de cancelación
+                onCancelClick(reserve.id)
             }
         }
     }
