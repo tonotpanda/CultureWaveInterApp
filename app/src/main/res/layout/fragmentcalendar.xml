@@ -9,30 +9,42 @@
         android:id="@+id/monthYearTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nunitobold"
         android:text="Mes y Año"
         android:textSize="20sp"
         android:textStyle="bold"
         android:gravity="center"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="10dp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/prevMonthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Mes Anterior"
-        android:layout_marginEnd="8dp" />
+        android:fontFamily="@font/nunito"
+        android:background="@drawable/borde_edittext"
+        android:backgroundTint="@color/orange"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextMonthButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/nunito"
         android:text="Mes Siguiente"
+        android:background="@drawable/borde_edittext"
+        android:backgroundTint="@color/orange"
         android:layout_marginStart="8dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/calendarRecyclerView"
         android:layout_width="match_parent"
+        android:fontFamily="@font/nunito"
         android:layout_height="0dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_weight="1" />
 

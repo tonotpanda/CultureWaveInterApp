@@ -57,5 +57,4 @@ dependencies {
     implementation (libs.androidx.recyclerview)
     implementation(libs.androidx.fragment.ktx)
     implementation (libs.gson.v2101)
-
 }

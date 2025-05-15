@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/eventName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:fontFamily="@font/nunitobold"
+        android:text="Reserva Nombre"
+        android:textSize="16sp"
+        android:paddingEnd="16dp" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cancelButton"
+        android:layout_width="wrap_content"
+        android:fontFamily="@font/nunito"
+        android:background="@drawable/borde_edittext"
+        android:backgroundTint="@color/orange"
+        android:layout_height="wrap_content"
+        android:text="Cancelar" />
+</LinearLayout>
