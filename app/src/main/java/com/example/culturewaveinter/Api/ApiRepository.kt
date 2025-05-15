@@ -1,8 +1,11 @@
 package com.example.culturewaveinter.Api
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.culturewaveinter.Entities.Event
+import com.example.culturewaveinter.Entities.Reserve
+import com.example.culturewaveinter.Entities.Seat
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.Dispatchers
@@ -70,6 +73,27 @@ object ApiRepository {
             } else {
                 return@withContext null
             }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun createReserve(reserve: Reserve): Reserve? {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.createReserve(reserve)
+            if (response.isSuccessful) response.body() else null
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun createSeat(seat: Seat): Seat? = withContext(Dispatchers.IO) {
+        val response = apiService.createSeat(seat)
+        if (response.isSuccessful) {
+            response.body()
+        } else {
+            // Imprime en log la respuesta de error exacta que te devuelve el servidor
+            val err = response.errorBody()?.string()
+            Log.e("ApiRepository", "createSeat fallo: HTTP ${response.code()} – $err")
+            null
         }
     }
 }

@@ -4,6 +4,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.culturewaveinter.Api.ApiClient.apiService
 import com.example.culturewaveinter.Entities.Event
+import com.example.culturewaveinter.Entities.Reserve
+import com.example.culturewaveinter.Entities.Seat
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.Dispatchers
@@ -38,6 +40,10 @@ interface ApiService {
     @POST("eventTables")
     suspend fun createEvent(@Body event: Event): Response<Event>
 
+    @POST("reserves")
+    suspend fun createReserve(@Body reserve: Reserve): Response<Reserve>
 
+    @POST("seats")
+    suspend fun createSeat(@Body seat: Seat): Response<Seat>
 
 }
