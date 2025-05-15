@@ -50,7 +50,8 @@ class FragmentEvents : Fragment(R.layout.fragmentevents) {
             val fragment = FragmentReserveEvent.newInstance(
                 event,
                 user,
-                space?.name ?: "Desconocido"
+                space?.name ?: "Desconocido",
+                space?.capacity ?: 0
             )
 
             parentFragmentManager.beginTransaction()

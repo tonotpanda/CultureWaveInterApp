@@ -1,9 +1,10 @@
 package com.example.culturewaveinter.Entities
 
+import com.google.gson.annotations.SerializedName
 import java.util.Date
 
 class Reserve (
-    val id: Int,
+    @SerializedName("idReserve")val id: Int,
     val reserveDate: Date,
     val idEvent: Int
 )

@@ -1,7 +1,9 @@
 package com.example.culturewaveinter.Entities
 
+import com.google.gson.annotations.SerializedName
+
 class Seat (
-    val id: Int,
+    @SerializedName("idSeat") val id: Int,
     val row: Char,
     val numSeat: Int,
     val idSpace: Int,
