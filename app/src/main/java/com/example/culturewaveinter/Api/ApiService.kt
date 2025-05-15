@@ -4,12 +4,14 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.culturewaveinter.Api.ApiClient.apiService
 import com.example.culturewaveinter.Entities.Event
+import com.example.culturewaveinter.Entities.Reserve
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -37,6 +39,15 @@ interface ApiService {
 
     @POST("eventTables")
     suspend fun createEvent(@Body event: Event): Response<Event>
+
+    @GET("reserves/user/{userId}")
+    suspend fun getUserReserves(@Path("userId") userId: Int): Response<List<Reserve>>
+
+    @DELETE("reserves/{reserveId}")
+    suspend fun cancelReserve(@Path("reserveId") reserveId: Int): Response<Void>
+
+    @GET("events/{id}")
+    suspend fun getEventById(@Path("id") eventId: Int): Response<Event>
 
 
 

@@ -1,157 +1,167 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white"
-    android:orientation="vertical">
-
-    <ImageView
-        android:layout_marginTop="20dp"
-        android:id="@+id/profilePicture"
-        android:padding="8dp"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:background="@drawable/borde_perfil"
-        android:src="@drawable/profile_picture" />
-
-    <TextView
-        android:layout_marginTop="10dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/nunitobold"
-        android:text="@string/profile"
-        android:textSize="22sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:fontFamily="@font/nunitobold"
-        android:layout_marginTop="25dp"
-        android:paddingTop="10dp"
-        android:text="@string/basicinformation_profile"
-        android:textSize="20sp" />
-
-    <TextView
-        android:layout_width="130dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/nunito"
-        android:text="@string/username_profile"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/editTextNombreUsuario"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borde_edittext"
-        android:fontFamily="@font/nunito"
-        android:padding="10dp"
-        android:textSize="18dp" />
-
-    <TextView
-        android:layout_width="150dp"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/nunito"
-        android:text="@string/email_profile"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/editTextBoxMail"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borde_edittext"
-        android:fontFamily="@font/nunito"
-        android:padding="10dp"
-        android:textSize="18dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:fontFamily="@font/nunito"
-        android:text="@string/changepasswd_profile"
-        android:textSize="18sp" />
-
-    <EditText
-        android:id="@+id/editTextBoxChangePassword"
-        android:layout_width="290dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:background="@drawable/borde_edittext"
-        android:fontFamily="@font/nunito"
-        android:password="true"
-        android:padding="10dp"
-        android:textSize="18dp" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnChangePassword"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/boton_personalizado"
-        android:fontFamily="@font/nunitobold"
-        android:text="@string/changepasswd_profile" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnLogOut"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="40dp"
-        android:background="@drawable/boton_personalizado"
-        android:fontFamily="@font/nunitobold"
-        android:textSize="20sp"
-        android:text="@string/logout_profile" />
+    android:layout_height="match_parent">
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:paddingTop="30dp"
-        android:weightSum="3">
+        android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/esFlagImg"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/espflag" />
+            android:layout_marginTop="20dp"
+            android:id="@+id/profilePicture"
+            android:padding="8dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/borde_perfil"
+            android:src="@drawable/profile_picture" />
 
-        <ImageView
-            android:id="@+id/catFlagImg"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/catflag" />
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nunitobold"
+            android:text="@string/profile"
+            android:textSize="22sp"
+            android:textStyle="bold" />
 
-        <ImageView
-            android:id="@+id/enFlagImg"
-            android:layout_width="0dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:src="@drawable/ingflag" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/nunitobold"
+            android:layout_marginTop="25dp"
+            android:paddingTop="10dp"
+            android:text="@string/basicinformation_profile"
+            android:textSize="20sp" />
+
+        <TextView
+            android:layout_width="130dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/username_profile"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextNombreUsuario"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borde_edittext"
+            android:fontFamily="@font/nunito"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/email_profile"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextBoxMail"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borde_edittext"
+            android:fontFamily="@font/nunito"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:fontFamily="@font/nunito"
+            android:text="@string/changepasswd_profile"
+            android:textSize="18sp" />
+
+        <EditText
+            android:id="@+id/editTextBoxChangePassword"
+            android:layout_width="290dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/borde_edittext"
+            android:fontFamily="@font/nunito"
+            android:password="true"
+            android:padding="10dp"
+            android:textSize="18dp" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnChangePassword"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/boton_personalizado"
+            android:fontFamily="@font/nunitobold"
+            android:text="@string/changepasswd_profile" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLogOut"
+            android:layout_width="180dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/boton_personalizado"
+            android:fontFamily="@font/nunitobold"
+            android:textSize="20sp"
+            android:text="@string/logout_profile" />
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:paddingTop="30dp"
+            android:weightSum="3">
+
+            <ImageView
+                android:id="@+id/esFlagImg"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/espflag" />
+
+            <ImageView
+                android:id="@+id/catFlagImg"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/catflag" />
+
+            <ImageView
+                android:id="@+id/enFlagImg"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/ingflag" />
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/reservesUser"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>

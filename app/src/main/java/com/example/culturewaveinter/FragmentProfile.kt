@@ -19,7 +19,11 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.culturewaveinter.Adapters.ReservesAdapter
 import com.example.culturewaveinter.Api.ApiRepository
+import com.example.culturewaveinter.Entities.ReserveWithEvent
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.launch
 import java.io.ByteArrayOutputStream
@@ -30,6 +34,8 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
     private var currentUser: User? = null
     private val REQUEST_IMAGE_CAPTURE = 1
     private val REQUEST_IMAGE_GALLERY = 2
+    private lateinit var reservesAdapter: ReservesAdapter
+    private lateinit var recyclerViewReserves: RecyclerView
 
     companion object {
         fun newInstance(user: User): FragmentProfile {
@@ -46,6 +52,13 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
         super.onViewCreated(view, savedInstanceState)
 
         currentUser = arguments?.getSerializable("user") as? User
+
+        // Configuración del RecyclerView
+        recyclerViewReserves = view.findViewById(R.id.reservesUser)
+        recyclerViewReserves.layoutManager = LinearLayoutManager(requireContext())
+
+        // Cargar reservas del usuario
+        loadReserves()
 
         val editTextName = view.findViewById<EditText>(R.id.editTextNombreUsuario)
         val editTextEmail = view.findViewById<EditText>(R.id.editTextBoxMail)
@@ -109,6 +122,53 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
             val intent = Intent(requireContext(), MainActivity::class.java)
             startActivity(intent)
             requireActivity().finish()
+        }
+    }
+
+    // Cargar las reservas del usuario
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun loadReserves() {
+        currentUser?.let { user ->
+            lifecycleScope.launch {
+                // Obtener las reservas del usuario desde el repositorio
+                val reserves = ApiRepository.getUserReserves(user.id)
+
+                // Verifica si reservas no es null y no está vacía
+                if (reserves.isNullOrEmpty()) {
+                    Toast.makeText(requireContext(), "No tienes reservas", Toast.LENGTH_SHORT).show()
+                } else {
+                    val reservesWithEvent = reserves.mapNotNull { reserve ->
+                        val eventResponse = ApiRepository.getEventById(reserve.idEvent)
+                        eventResponse?.let {
+                            ReserveWithEvent(
+                                idReserve = reserve.id,
+                                eventName = it.name,
+                                idEvent = reserve.idEvent
+                                            )
+                        }
+                    }
+
+                    // Crear el adaptador y asignarlo al RecyclerView
+                    reservesAdapter = ReservesAdapter(reservesWithEvent) { reserveId ->
+                        cancelReserve(reserveId)
+                    }
+                    recyclerViewReserves.adapter = reservesAdapter
+                }
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun cancelReserve(reserveId: Int) {
+        lifecycleScope.launch {
+            // Cancelar la reserva
+            val success = ApiRepository.cancelReserve(reserveId)
+            if (success) {
+                Toast.makeText(requireContext(), "Reserva cancelada correctamente", Toast.LENGTH_SHORT).show()
+                loadReserves() // Recargar las reservas después de la cancelación
+            } else {
+                Toast.makeText(requireContext(), "Error al cancelar la reserva", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
