@@ -33,7 +33,7 @@ class ReservesAdapter(
         private val cancelButton: Button = view.findViewById(R.id.cancelButton)
 
         fun bind(reserve: Reserve) {
-            eventName.text = reserve.event.name // Usa el evento directamente
+            eventName.text = reserve.idEvent.toString()
             cancelButton.setOnClickListener {
                 onCancelClick(reserve.id)
             }

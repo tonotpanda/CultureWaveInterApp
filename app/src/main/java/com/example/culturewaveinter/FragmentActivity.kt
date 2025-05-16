@@ -82,4 +82,8 @@ class FragmentActivity : AppCompatActivity() {
             .replace(R.id.fragmentContainer, fragment)
             .commit()
     }
+
+    fun updateCurrentUser(user: User) {
+        currentUser = user
+    }
 }

@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
 }
 
 android {
@@ -57,4 +58,6 @@ dependencies {
     implementation (libs.androidx.recyclerview)
     implementation(libs.androidx.fragment.ktx)
     implementation (libs.gson.v2101)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
 }

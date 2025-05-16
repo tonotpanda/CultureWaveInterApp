@@ -90,7 +90,6 @@ object ApiRepository {
         if (response.isSuccessful) {
             response.body()
         } else {
-            // Imprime en log la respuesta de error exacta que te devuelve el servidor
             val err = response.errorBody()?.string()
             Log.e("ApiRepository", "createSeat fallo: HTTP ${response.code()} – $err")
             null

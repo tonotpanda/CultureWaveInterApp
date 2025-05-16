@@ -1,32 +1,25 @@
 package com.example.culturewaveinter
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.util.Base64
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.Toast
+import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.culturewaveinter.Adapters.ReservesAdapter
 import com.example.culturewaveinter.Api.ApiRepository
-import com.example.culturewaveinter.Entities.ReserveWithEvent
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.launch
-import java.io.ByteArrayOutputStream
 import java.util.*
 
 class FragmentProfile : Fragment(R.layout.fragmentprofile) {
@@ -53,12 +46,9 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
 
         currentUser = arguments?.getSerializable("user") as? User
 
-        // Configuración del RecyclerView
         recyclerViewReserves = view.findViewById(R.id.reservesUser)
         recyclerViewReserves.layoutManager = LinearLayoutManager(requireContext())
-
-        // Cargar reservas del usuario
-        loadReserves()
+        // loadReserves()
 
         val editTextName = view.findViewById<EditText>(R.id.editTextNombreUsuario)
         val editTextEmail = view.findViewById<EditText>(R.id.editTextBoxMail)
@@ -67,8 +57,11 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
         val btnLogOut = view.findViewById<Button>(R.id.btnLogOut)
         val imageViewProfile = view.findViewById<ImageView>(R.id.profilePicture)
 
-        loadImageFromPrefs()?.let {
-            imageViewProfile.setImageBitmap(it)
+        currentUser?.profilePicture?.let { urlOrUri ->
+            Glide.with(this)
+                .load(urlOrUri)
+                .circleCrop()
+                .into(imageViewProfile)
         }
 
         editTextEmail.setText(currentUser?.email)
@@ -81,13 +74,9 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
             showImageSourceDialog()
         }
 
-        val esFlag = view.findViewById<ImageView>(R.id.esFlagImg)
-        val catFlag = view.findViewById<ImageView>(R.id.catFlagImg)
-        val enFlag = view.findViewById<ImageView>(R.id.enFlagImg)
-
-        esFlag.setOnClickListener { setLanguage("es") }
-        catFlag.setOnClickListener { setLanguage("ca") }
-        enFlag.setOnClickListener { setLanguage("en") }
+        view.findViewById<ImageView>(R.id.esFlagImg).setOnClickListener { setLanguage("es") }
+        view.findViewById<ImageView>(R.id.catFlagImg).setOnClickListener { setLanguage("ca") }
+        view.findViewById<ImageView>(R.id.enFlagImg).setOnClickListener { setLanguage("en") }
 
         btnChangePassword.setOnClickListener {
             val newPassword = editTextNewPassword.text.toString().trim()
@@ -111,6 +100,8 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
                         Toast.makeText(requireContext(), "Contraseña actualizada correctamente", Toast.LENGTH_SHORT).show()
                         currentUser = updatedUser
                         editTextNewPassword.text.clear()
+
+                        (activity as? FragmentActivity)?.updateCurrentUser(updatedUser)
                     } else {
                         Toast.makeText(requireContext(), "Error al actualizar la contraseña", Toast.LENGTH_SHORT).show()
                     }
@@ -125,13 +116,11 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
         }
     }
 
-    // Cargar las reservas del usuario
-    @RequiresApi(Build.VERSION_CODES.O)
+    /*@RequiresApi(Build.VERSION_CODES.O)
     private fun loadReserves() {
         currentUser?.let { user ->
             lifecycleScope.launch {
                 val reserves = ApiRepository.getUserReserves(user.id)
-
                 if (reserves.isNullOrEmpty()) {
                     Toast.makeText(requireContext(), "No tienes reservas", Toast.LENGTH_SHORT).show()
                 } else {
@@ -147,16 +136,15 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun cancelReserve(reserveId: Int) {
         lifecycleScope.launch {
-            // Cancelar la reserva
             val success = ApiRepository.cancelReserve(reserveId)
             if (success) {
                 Toast.makeText(requireContext(), "Reserva cancelada correctamente", Toast.LENGTH_SHORT).show()
-                loadReserves() // Recargar las reservas después de la cancelación
+                loadReserves()
             } else {
                 Toast.makeText(requireContext(), "Error al cancelar la reserva", Toast.LENGTH_SHORT).show()
             }
         }
-    }
+    }*/
 
     private fun showImageSourceDialog() {
         val options = arrayOf("Cámara", "Galería")
@@ -184,71 +172,67 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
         startActivityForResult(intent, REQUEST_IMAGE_GALLERY)
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-
         if (resultCode == Activity.RESULT_OK && data != null) {
             val imageViewProfile = view?.findViewById<ImageView>(R.id.profilePicture)
             when (requestCode) {
                 REQUEST_IMAGE_CAPTURE -> {
-                    val imageBitmap = data.extras?.get("data") as Bitmap
-                    val squareBitmap = cropToSquare(imageBitmap)
-                    imageViewProfile?.setImageBitmap(squareBitmap)
-                    saveImageToPrefs(squareBitmap)
+                    val bitmap = data.extras?.get("data") as? Bitmap ?: return
+                    val uri = saveBitmapToTempUri(bitmap)
+                    uri?.let {
+                        updateProfilePicture(it, imageViewProfile)
+                    }
                 }
 
                 REQUEST_IMAGE_GALLERY -> {
-                    val selectedImageUri: Uri = data.data ?: return
-                    val inputStream = requireContext().contentResolver.openInputStream(selectedImageUri)
-                    val bitmap = BitmapFactory.decodeStream(inputStream)
-                    val squareBitmap = cropToSquare(bitmap)
-                    imageViewProfile?.setImageBitmap(squareBitmap)
-                    saveImageToPrefs(squareBitmap)
+                    val uri = data.data ?: return
+                    updateProfilePicture(uri, imageViewProfile)
                 }
             }
         }
     }
 
-    private fun cropToSquare(bitmap: Bitmap): Bitmap {
-        val size = minOf(bitmap.width, bitmap.height)
-        val xOffset = (bitmap.width - size) / 2
-        val yOffset = (bitmap.height - size) / 2
-        return Bitmap.createBitmap(bitmap, xOffset, yOffset, size, size)
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun updateProfilePicture(uri: Uri, imageViewProfile: ImageView?) {
+        currentUser?.let { user ->
+            val updatedUser = user.copy(profilePicture = uri.toString())
+            lifecycleScope.launch {
+                val success = ApiRepository.updateUser(updatedUser)
+                if (success) {
+                    currentUser = updatedUser
+                    imageViewProfile?.let {
+                        Glide.with(this@FragmentProfile).load(uri).circleCrop().into(it)
+                    }
+                    Toast.makeText(requireContext(), "Foto de perfil actualizada", Toast.LENGTH_SHORT).show()
+
+                    // Actualiza también en la actividad
+                    (activity as? FragmentActivity)?.updateCurrentUser(updatedUser)
+                } else {
+                    Toast.makeText(requireContext(), "Error al actualizar la foto de perfil", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
-    private fun bitmapToBase64(bitmap: Bitmap): String {
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val bytes = stream.toByteArray()
-        return Base64.encodeToString(bytes, Base64.DEFAULT)
-    }
-
-    private fun base64ToBitmap(base64Str: String): Bitmap {
-        val bytes = Base64.decode(base64Str, Base64.DEFAULT)
-        return BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
-    }
-
-    private fun saveImageToPrefs(bitmap: Bitmap) {
-        val prefs = requireContext().getSharedPreferences("profile_prefs", Context.MODE_PRIVATE)
-        prefs.edit().putString("profile_image", bitmapToBase64(bitmap)).apply()
-    }
-
-    private fun loadImageFromPrefs(): Bitmap? {
-        val prefs = requireContext().getSharedPreferences("profile_prefs", Context.MODE_PRIVATE)
-        val base64 = prefs.getString("profile_image", null) ?: return null
-        return base64ToBitmap(base64)
+    private fun saveBitmapToTempUri(bitmap: Bitmap): Uri? {
+        val path = MediaStore.Images.Media.insertImage(
+            requireContext().contentResolver,
+            bitmap,
+            "temp_profile_image",
+            null
+                                                      )
+        return Uri.parse(path)
     }
 
     private fun setLanguage(languageCode: String) {
         val locale = Locale(languageCode)
         Locale.setDefault(locale)
-
         val config = Configuration()
         config.setLocale(locale)
         requireContext().resources.updateConfiguration(config, requireContext().resources.displayMetrics)
-
         activity?.recreate()
-
         Toast.makeText(requireContext(), "Idioma cambiado a $languageCode", Toast.LENGTH_SHORT).show()
     }
 }

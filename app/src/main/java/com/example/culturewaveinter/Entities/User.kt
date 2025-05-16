@@ -9,5 +9,6 @@ data class User (
     var name: String,
     var email: String,
     var password: String,
-    val rol: Int
+    val rol: Int,
+    var profilePicture : String
 ) : Serializable

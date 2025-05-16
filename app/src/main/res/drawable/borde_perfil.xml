@@ -3,4 +3,7 @@
     <stroke
         android:width="5dp"
         android:color="@color/brown" />
+
+    <corners
+        android:radius="300dp" />
 </shape>

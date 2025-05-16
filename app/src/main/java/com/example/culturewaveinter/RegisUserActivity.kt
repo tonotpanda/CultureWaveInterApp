@@ -61,7 +61,8 @@ class RegisUserActivity : AppCompatActivity() {
                 name = username,
                 email = email,
                 password = encryptedPassword,
-                rol = 3
+                rol = 3,
+                profilePicture = "https://i.pinimg.com/222x/57/70/f0/5770f01a32c3c53e90ecda61483ccb08.jpg"
             )
 
             lifecycleScope.launch {
