@@ -9,15 +9,26 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_marginTop="20dp"
-            android:id="@+id/profilePicture"
-            android:padding="8dp"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+        <FrameLayout
+            android:id="@+id/profileMediaContainer"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:background="@drawable/borde_perfil"
-            android:src="@drawable/profile_picture" />
+            android:layout_marginTop="16dp">
+
+            <VideoView
+                android:id="@+id/profileVideo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
+
+            <ImageView
+                android:id="@+id/profilePicture"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:background="@drawable/borde_perfil"/>
+        </FrameLayout>
 
         <TextView
             android:layout_marginTop="10dp"
