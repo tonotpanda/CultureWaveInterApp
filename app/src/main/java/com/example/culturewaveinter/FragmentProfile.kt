@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.widget.*
 import androidx.annotation.RequiresApi
@@ -18,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.culturewaveinter.Adapters.ReservesAdapter
 import com.example.culturewaveinter.Api.ApiRepository
+import com.example.culturewaveinter.Entities.ReserveResponse
+import com.example.culturewaveinter.Entities.ReserveWithEvent
 import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.launch
 import java.io.File
@@ -52,7 +55,7 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
 
         recyclerViewReserves = view.findViewById(R.id.reservesUser)
         recyclerViewReserves.layoutManager = LinearLayoutManager(requireContext())
-        // loadReserves()
+        loadReserves()
 
         val editTextName = view.findViewById<EditText>(R.id.editTextNombreUsuario)
         val editTextEmail = view.findViewById<EditText>(R.id.editTextBoxMail)
@@ -314,22 +317,69 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
         Toast.makeText(requireContext(), "Idioma cambiado a $languageCode", Toast.LENGTH_SHORT).show()
     }
 
-    /*
     @RequiresApi(Build.VERSION_CODES.O)
     private fun loadReserves() {
-        currentUser?.let { user ->
-            lifecycleScope.launch {
-                val reserves = ApiRepository.getUserReserves(user.id)
-                if (reserves.isNullOrEmpty()) {
-                    Toast.makeText(requireContext(), "No tienes reservas", Toast.LENGTH_SHORT).show()
+        val userId = currentUser?.id ?: run {
+            showError("Usuario no autenticado")
+            return
+        }
+
+        Log.d("FragmentProfile", "Cargando reservas para userId: $userId")
+
+        lifecycleScope.launch {
+            try {
+                val response = ApiRepository.getReservesByUser(userId)
+                Log.d("FragmentProfile", "Respuesta del API (reservas): $response")
+
+                if (!response.isNullOrEmpty()) {
+                    showReservas(response)
                 } else {
-                    reservesAdapter = ReservesAdapter(reserves) { reserveId ->
-                        cancelReserve(reserveId)
-                    }
-                    recyclerViewReserves.adapter = reservesAdapter
+                    showNoReservas()
                 }
+            } catch (e: Exception) {
+                Log.e("FragmentProfile", "Error al cargar reservas: ${e.message}", e)
+                showError("Error cargando reservas: ${e.message}")
             }
         }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun showReservas(reserves: List<ReserveResponse>) {
+        val reservesWithEvents = reserves.mapNotNull {
+            if (it.idReserve != null && it.eventName != null) {
+                ReserveWithEvent(
+                    idReserve = it.idReserve,
+                    eventName = it.eventName,
+                    reserveDate = it.reserveDate ?: "",
+                    eventId = it.idEvent ?: -1
+                )
+            } else {
+                Log.w("FragmentProfile", "Reserva descartada por campos nulos: $it")
+                null
+            }
+        }
+
+        Log.d("FragmentProfile", "Reservas válidas para mostrar: ${reservesWithEvents.size}")
+
+        if (!::reservesAdapter.isInitialized) {
+            reservesAdapter = ReservesAdapter(reservesWithEvents.toMutableList()) { reserveId ->
+                cancelReserve(reserveId)
+            }
+            recyclerViewReserves.adapter = reservesAdapter
+        } else {
+            reservesAdapter.updateReserves(reservesWithEvents)
+        }
+
+        recyclerViewReserves.visibility = View.VISIBLE
+    }
+
+    private fun showNoReservas() {
+        recyclerViewReserves.visibility = View.GONE
+        Toast.makeText(requireContext(), "No tienes reservas", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun showError(message: String?) {
+        Toast.makeText(requireContext(), message ?: "Error desconocido", Toast.LENGTH_LONG).show()
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -344,5 +394,5 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
             }
         }
     }
-    */
+
 }

@@ -5,6 +5,7 @@ import androidx.annotation.RequiresApi
 import com.example.culturewaveinter.Api.ApiClient.apiService
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Reserve
+import com.example.culturewaveinter.Entities.ReserveResponse
 import com.example.culturewaveinter.Entities.Seat
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
@@ -46,5 +47,9 @@ interface ApiService {
     @POST("seats")
     suspend fun createSeat(@Body seat: Seat): Response<Seat>
 
+    @GET("eventTables/ReservesByUser/{idUser}")
+    suspend fun getReservesByUser(@Path("idUser") userId: Int): Response<List<ReserveResponse>>
 
+    @POST("reserves/cancel/{id}")
+    suspend fun cancelReserve(@Path("id") reserveId: Int): Response<Void>
 }

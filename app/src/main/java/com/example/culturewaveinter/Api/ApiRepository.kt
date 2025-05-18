@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.annotation.RequiresApi
 import com.example.culturewaveinter.Entities.Event
 import com.example.culturewaveinter.Entities.Reserve
+import com.example.culturewaveinter.Entities.ReserveResponse
 import com.example.culturewaveinter.Entities.Seat
 import com.example.culturewaveinter.Entities.Space
 import com.example.culturewaveinter.Entities.User
@@ -93,6 +94,34 @@ object ApiRepository {
             val err = response.errorBody()?.string()
             Log.e("ApiRepository", "createSeat fallo: HTTP ${response.code()} – $err")
             null
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun getReservesByUser(userId: Int): List<ReserveResponse>? {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = ApiClient.apiService.getReservesByUser(userId)
+                if (response.isSuccessful) {
+                    response.body().also {
+                        Log.d("API_RESPONSE", "Reservas recibidas: ${it?.size}")
+                    }
+                } else {
+                    Log.e("API_ERROR", "Código: ${response.code()}")
+                    null
+                }
+            } catch (e: Exception) {
+                Log.e("API_EXCEPTION", e.message ?: "Error desconocido")
+                null
+            }
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    suspend fun cancelReserve(reserveId: Int): Boolean {
+        return withContext(Dispatchers.IO) {
+            val response = apiService.cancelReserve(reserveId)
+            response.isSuccessful
         }
     }
 }
