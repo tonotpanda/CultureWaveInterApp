@@ -385,10 +385,10 @@ class FragmentProfile : Fragment(R.layout.fragmentprofile) {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun cancelReserve(reserveId: Int) {
         lifecycleScope.launch {
-            val success = ApiRepository.cancelReserve(reserveId)
+            val success = ApiRepository.deleteReserve(reserveId)
             if (success) {
                 Toast.makeText(requireContext(), "Reserva cancelada correctamente", Toast.LENGTH_SHORT).show()
-                loadReserves()
+                loadReserves() // Vuelve a cargar las reservas actualizadas
             } else {
                 Toast.makeText(requireContext(), "Error al cancelar la reserva", Toast.LENGTH_SHORT).show()
             }

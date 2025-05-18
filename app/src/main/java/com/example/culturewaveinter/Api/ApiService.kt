@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
@@ -50,6 +51,6 @@ interface ApiService {
     @GET("eventTables/ReservesByUser/{idUser}")
     suspend fun getReservesByUser(@Path("idUser") userId: Int): Response<List<ReserveResponse>>
 
-    @POST("reserves/cancel/{id}")
-    suspend fun cancelReserve(@Path("id") reserveId: Int): Response<Void>
+    @DELETE("eventTables/DeleteReserve/{id}")
+    suspend fun deleteReserve(@Path("id") id: Int): Response<Unit>
 }

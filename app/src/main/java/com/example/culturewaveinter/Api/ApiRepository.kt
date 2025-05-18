@@ -118,10 +118,12 @@ object ApiRepository {
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    suspend fun cancelReserve(reserveId: Int): Boolean {
-        return withContext(Dispatchers.IO) {
-            val response = apiService.cancelReserve(reserveId)
+    suspend fun deleteReserve(idReserve: Int): Boolean {
+        return try {
+            val response = apiService.deleteReserve(idReserve)
             response.isSuccessful
+        } catch (e: Exception) {
+            false
         }
     }
 }
