@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.culturewaveinter.Adapters.ChatAdapter
 import com.example.culturewaveinter.Api.ApiRepository
+import com.example.culturewaveinter.Entities.AESUtil
 import com.example.culturewaveinter.Entities.Message
 import com.example.culturewaveinter.Entities.MessageData
 import com.example.culturewaveinter.Entities.User
@@ -114,14 +115,20 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
                     val jsonObject = gson.fromJson(line, Map::class.java)
 
                     if (jsonObject["type"] == "message") {
+                        val encryptedContent = jsonObject["content"] as String
+                        val decryptedContent = try {
+                            AESUtil.decrypt(encryptedContent)
+                        } catch (e: Exception) {
+                            "[Mensaje ilegible]"
+                        }
+
                         val message = Message(
                             id = (jsonObject["message_id"] as Double).toInt(),
                             from = (jsonObject["from"] as Double).toInt(),
-                            content = jsonObject["content"] as String,
+                            content = decryptedContent,
                             timestamp = jsonObject["timestamp"]?.toString() ?: ""
-                                             )
+                        )
 
-                        // Obtener el nombre del usuario desde el cache
                         val userName = userCache[message.from] ?: "Usuario desconocido"
                         message.senderName = userName
 
@@ -130,6 +137,7 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
                             recyclerView.smoothScrollToPosition(chatAdapter.itemCount - 1)
                         }
                     }
+
                 }
 
             } catch (e: Exception) {
@@ -143,7 +151,8 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
     private fun sendMessage(content: String) {
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                val messageData = MessageData(userId, content)
+                val encryptedContent = AESUtil.encrypt(content)
+                val messageData = MessageData(userId, encryptedContent)
                 writer?.write(gson.toJson(messageData) + "\n")
                 writer?.flush()
             } catch (e: Exception) {
@@ -153,6 +162,7 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
             }
         }
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
