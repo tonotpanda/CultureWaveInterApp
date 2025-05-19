@@ -92,7 +92,9 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
                 }
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Error al cargar usuarios: ${e.message}", Toast.LENGTH_LONG).show()
+                    context?.let {
+                        Toast.makeText(it, "Error al cargar usuarios: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -142,7 +144,9 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Error de conexión: ${e.message}", Toast.LENGTH_LONG).show()
+                    context?.let {
+                        Toast.makeText(it, "Error de conexión: ${e.message}", Toast.LENGTH_LONG).show()
+                    }
                 }
             }
         }
@@ -157,7 +161,9 @@ class FragmentChat : Fragment(R.layout.fragmentchat) {
                 writer?.flush()
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    Toast.makeText(requireContext(), "Error al enviar mensaje", Toast.LENGTH_SHORT).show()
+                    context?.let {
+                        Toast.makeText(it, "Error al enviar mensaje", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
