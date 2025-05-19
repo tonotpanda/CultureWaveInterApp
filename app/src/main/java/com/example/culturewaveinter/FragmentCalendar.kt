@@ -15,6 +15,7 @@ import com.example.culturewaveinter.Adapters.CalendarAdapter
 import com.example.culturewaveinter.Api.ApiRepository
 import com.example.culturewaveinter.Entities.CalendarDay
 import com.example.culturewaveinter.Entities.Event
+import com.example.culturewaveinter.Entities.User
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.YearMonth
@@ -23,12 +24,28 @@ import java.util.*
 
 class FragmentCalendar : Fragment(R.layout.fragmentcalendar) {
 
+    private var currentUser: User? = null
     private lateinit var calendarRecyclerView: RecyclerView
     private lateinit var monthYearText: TextView
     private lateinit var prevMonthBtn: Button
     private lateinit var nextMonthBtn: Button
     private var currentDate = Calendar.getInstance()
-    private var allEvents: List<Event> = emptyList() // Eventos cargados desde la API
+    private var allEvents: List<Event> = emptyList()
+
+    companion object {
+        fun newInstance(user: User): FragmentCalendar {
+            val fragment = FragmentCalendar()
+            val args = Bundle()
+            args.putSerializable("user", user)
+            fragment.arguments = args
+            return fragment
+        }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        currentUser = arguments?.getSerializable("user") as? User
+    }
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,13 +74,10 @@ class FragmentCalendar : Fragment(R.layout.fragmentcalendar) {
     private fun loadCalendar() {
         lifecycleScope.launch {
             try {
-                // 1. Obtener eventos desde la API
                 val events = ApiRepository.getEvents()
                 if (events != null) {
                     allEvents = events
-                    // 2. Generar días del calendario con eventos reales
                     val calendarDays = generateCalendarDays()
-                    // 3. Actualizar UI en el hilo principal
                     requireActivity().runOnUiThread {
                         monthYearText.text = formatMonthYear()
                         calendarRecyclerView.adapter = CalendarAdapter(calendarDays) { selectedDay ->
@@ -116,15 +130,16 @@ class FragmentCalendar : Fragment(R.layout.fragmentcalendar) {
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun openEventsFragment(selectedDay: CalendarDay) {
-        // Obtener espacios desde la API (debes implementar esta función)
-        // Abre el evento con el evento seleccionado del calendario
         lifecycleScope.launch {
             val spaces = ApiRepository.getSpaces() ?: emptyList()
 
             val fragment = FragmentEvents().apply {
                 arguments = Bundle().apply {
                     putSerializable("event", selectedDay.events.first())
-                    putSerializable("spaces", ArrayList(spaces)) // Pasar lista de espacios
+                    putSerializable("spaces", ArrayList(spaces))
+                    currentUser?.let {
+                        putSerializable("user", it)
+                    }
                 }
             }
 

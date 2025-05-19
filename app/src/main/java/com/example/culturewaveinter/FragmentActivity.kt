@@ -31,7 +31,7 @@ class FragmentActivity : AppCompatActivity() {
                     true
                 }
                 R.id.navigation_events -> {
-                    loadFragment(FragmentCalendar())
+                    loadFragment(FragmentCalendar.newInstance(currentUser))
                     true
                 }
                 R.id.navigation_chat -> {
